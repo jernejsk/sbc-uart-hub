@@ -1,0 +1,271 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "45dc2f7e-2e5e-5855-ac15-0055e2a67de5")
+	(paper "A4")
+	(title_block
+		(title "SBC farm 16-ch UART hub")
+		(rev "A")
+		(company "SBC farm")
+	)
+	(lib_symbols)
+	(sheet
+		(at 30.48 40.64)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "7b57405c-bb14-5540-8d9a-dede204a689d")
+		(property "Sheetname" "Power"
+			(at 30.48 39.9284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power.kicad_sch"
+			(at 30.48 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "sbc-uart-hub"
+				(path "/45dc2f7e-2e5e-5855-ac15-0055e2a67de5"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 106.68 40.64)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "764a537b-7966-5cf0-9311-72c49b483d0e")
+		(property "Sheetname" "Hub"
+			(at 106.68 39.9284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "hub.kicad_sch"
+			(at 106.68 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "sbc-uart-hub"
+				(path "/45dc2f7e-2e5e-5855-ac15-0055e2a67de5"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 182.88 40.64)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "76911fca-0d23-5677-b0bb-f3ac72ce060c")
+		(property "Sheetname" "FT1"
+			(at 182.88 39.9284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ft1.kicad_sch"
+			(at 182.88 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "sbc-uart-hub"
+				(path "/45dc2f7e-2e5e-5855-ac15-0055e2a67de5"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 259.08 40.64)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "aa069b88-4459-5fa2-aa8b-9f07b2abf23c")
+		(property "Sheetname" "FT2"
+			(at 259.08 39.9284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ft2.kicad_sch"
+			(at 259.08 66.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "sbc-uart-hub"
+				(path "/45dc2f7e-2e5e-5855-ac15-0055e2a67de5"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 30.48 91.44)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "2cb4f505-1e8c-503b-91a8-0916e27e4215")
+		(property "Sheetname" "FT3"
+			(at 30.48 90.7284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ft3.kicad_sch"
+			(at 30.48 117.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "sbc-uart-hub"
+				(path "/45dc2f7e-2e5e-5855-ac15-0055e2a67de5"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 106.68 91.44)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "e0698b10-be23-59d1-b1c9-afe9a9f67e87")
+		(property "Sheetname" "FT4"
+			(at 106.68 90.7284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ft4.kicad_sch"
+			(at 106.68 117.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "sbc-uart-hub"
+				(path "/45dc2f7e-2e5e-5855-ac15-0055e2a67de5"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
