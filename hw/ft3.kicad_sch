@@ -7083,7 +7083,7 @@
 				)
 			)
 		)
-		(property "Value" "CH09"
+		(property "Value" "B3B-XH-A"
 			(at 373.38 64.77 0)
 			(effects
 				(font
@@ -7627,7 +7627,7 @@
 				)
 			)
 		)
-		(property "Value" "CH10"
+		(property "Value" "B3B-XH-A"
 			(at 373.38 85.09 0)
 			(effects
 				(font
@@ -8727,7 +8727,7 @@
 				)
 			)
 		)
-		(property "Value" "CH11"
+		(property "Value" "B3B-XH-A"
 			(at 373.38 181.61 0)
 			(effects
 				(font
@@ -9271,7 +9271,7 @@
 				)
 			)
 		)
-		(property "Value" "CH12"
+		(property "Value" "B3B-XH-A"
 			(at 373.38 201.93 0)
 			(effects
 				(font

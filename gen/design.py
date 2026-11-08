@@ -133,20 +133,25 @@ for i in range(4):
 # =====================================================================
 hb = d.sheet('Hub', 'hub.kicad_sch', 'USB2514B 4-port hub')
 hb.text('CFG_SEL[1:0]=10: default config, bus powered. NON_REM=00. BC_EN=0 (PRTPWR not pulled up).', (25.4, 22.86))
-hb.text('PRTPWRn -> FTn RESET# 0R links are DNP. Fit them (and remove FT RESET# pull-up) for uhubctl hard reset.',
-        (25.4, 27.94))
+hb.text('Hub port 1..4 -> FT3, FT4, FT2, FT1 (uhubctl -p N).', (25.4, 27.94))
+hb.text('PRTPWR -> FT RESET# 0R links are DNP: fit them and remove the FT RESET# pull-up for hard reset.',
+        (25.4, 33.02))
 hpins = {'5': '+3V3', '10': '+3V3', '29': '+3V3', '36': '+3V3', '15': '+3V3', '23': '+3V3', '37': 'GND',
          '11': 'GND', '14': 'HUB_CRFILT', '34': 'HUB_PLLFILT', '35': 'HUB_RBIAS', '33': 'HUB_XI', '32': 'HUB_XO',
          '26': 'HUB_RESET_N', '27': 'HUB_VBUS_DET', '22': 'HUB_NON_REM1', '24': 'HUB_CFG_SEL0',
          '25': 'HUB_CFG_SEL1', '28': 'HUB_NON_REM0', '30': 'USB_UP_DM', '31': 'USB_UP_DP'}
+# hub port -> pins; port->FT mapping chosen so the four USB lanes leave the hub
+# without crossing (top pins go to the top-row FTs).  uhubctl port = hub port.
 dn = {1: ('1', '2', '12', '13'), 2: ('3', '4', '16', '17'), 3: ('6', '7', '18', '19'), 4: ('8', '9', '20', '21')}
-for n, (dm, dp, pwr, ocs) in dn.items():
+HUBPORT_FT = {1: 3, 2: 4, 3: 2, 4: 1}
+for hp, (dm, dp, pwr, ocs) in dn.items():
+    n = HUBPORT_FT[hp]
     hpins[dm] = 'FT%d_DM' % n
     hpins[dp] = 'FT%d_DP' % n
     hpins[pwr] = 'FT%d_PRTPWR' % n
     hpins[ocs] = None
 hb.place('Interface_USB:USB2514B_Bi', d.next_ref('U'), 'USB2514B', (127, 101.6), fields=fields('C16251', 'USB2514B-AEZC-TR'),
-         fp='Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm_ThermalVias', pins=hpins)
+         fp='Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm', pins=hpins)
 xtal(hb, (63.5, 162.56), '24MHz', 'HUB_XI', 'HUB_XO')
 t = Table(hb, 215.9, 50.8, rows=16)
 for _ in range(6):
@@ -267,7 +272,7 @@ for n in range(1, 5):
             t.add('R0402', '1k', '+3V3', p + q + '_LED_A')
             t.add('LED', 'green', p + q + '_DTR_N', p + q + '_LED_A')
             jref = 'J%d' % (100 + ch)
-            s.place('Connector_Generic:Conn_01x03', jref, 'CH%02d' % ch, (370.84, y0 + qi * 20.32 + 10.16),
+            s.place('Connector_Generic:Conn_01x03', jref, 'B3B-XH-A', (370.84, y0 + qi * 20.32 + 10.16),
                     fields=dict(fields('C144394', 'B3B-XH-A(LF)(SN)'), Channel='CH%02d' % ch),
                     fp='Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical',
                     pins={'1': 'GND', '2': 'CH%02d_TX' % ch, '3': 'CH%02d_RX' % ch})

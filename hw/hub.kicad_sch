@@ -1692,7 +1692,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm_ThermalVias"
+		(property "Footprint" "Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm"
 			(at 127 101.6 0)
 			(effects
 				(font
@@ -4401,7 +4401,7 @@
 			)
 		)
 	)
-	(global_label "FT1_DM"
+	(global_label "FT3_DM"
 		(shape bidirectional)
 		(at 154.94 78.74 0)
 		(fields_autoplaced yes)
@@ -4411,7 +4411,7 @@
 			)
 			(justify left)
 		)
-		(uuid "49f59f99-a37e-5496-9a1a-36ccd9a0eb6f")
+		(uuid "2ddd05fa-d980-567c-815d-5928c2725004")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 78.74 0)
 			(effects
@@ -4422,7 +4422,7 @@
 			)
 		)
 	)
-	(global_label "FT1_DP"
+	(global_label "FT3_DP"
 		(shape bidirectional)
 		(at 154.94 81.28 0)
 		(fields_autoplaced yes)
@@ -4432,7 +4432,7 @@
 			)
 			(justify left)
 		)
-		(uuid "dd7ff54d-08d1-59ec-9fd8-19682f4c2d7b")
+		(uuid "5e53693c-8a11-53b8-8ac2-e25889597d65")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 81.28 0)
 			(effects
@@ -4443,7 +4443,7 @@
 			)
 		)
 	)
-	(label "FT1_PRTPWR"
+	(label "FT3_PRTPWR"
 		(at 154.94 83.82 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4452,9 +4452,9 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "3837d999-e003-58e8-9a2b-46d9cce08575")
+		(uuid "b7b47e57-7c4e-5d77-aef2-56c523aa684e")
 	)
-	(global_label "FT2_DM"
+	(global_label "FT4_DM"
 		(shape bidirectional)
 		(at 154.94 91.44 0)
 		(fields_autoplaced yes)
@@ -4464,7 +4464,7 @@
 			)
 			(justify left)
 		)
-		(uuid "09af406b-c215-5017-b591-7de309a128f8")
+		(uuid "6b011127-9409-5b51-b140-5479935cfaab")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 91.44 0)
 			(effects
@@ -4475,7 +4475,7 @@
 			)
 		)
 	)
-	(global_label "FT2_DP"
+	(global_label "FT4_DP"
 		(shape bidirectional)
 		(at 154.94 93.98 0)
 		(fields_autoplaced yes)
@@ -4485,7 +4485,7 @@
 			)
 			(justify left)
 		)
-		(uuid "dc9e1405-b6a7-54c9-965d-6d304532e5ce")
+		(uuid "48e19a0a-fea1-520c-a9b4-96542ae3691f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 93.98 0)
 			(effects
@@ -4496,7 +4496,7 @@
 			)
 		)
 	)
-	(label "FT2_PRTPWR"
+	(label "FT4_PRTPWR"
 		(at 154.94 96.52 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4505,9 +4505,9 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "fe1e6e5c-4f2e-5d99-8268-598d220966e1")
+		(uuid "c1d2a1f5-3fb8-57f6-9bd0-dd96f0e0a6c4")
 	)
-	(global_label "FT3_DM"
+	(global_label "FT2_DM"
 		(shape bidirectional)
 		(at 154.94 104.14 0)
 		(fields_autoplaced yes)
@@ -4517,7 +4517,7 @@
 			)
 			(justify left)
 		)
-		(uuid "ce80ef33-f374-5aac-9b6f-681a44ad8cbb")
+		(uuid "04a02efd-6441-5f3f-a88a-564b27e76352")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 104.14 0)
 			(effects
@@ -4528,7 +4528,7 @@
 			)
 		)
 	)
-	(global_label "FT3_DP"
+	(global_label "FT2_DP"
 		(shape bidirectional)
 		(at 154.94 106.68 0)
 		(fields_autoplaced yes)
@@ -4538,7 +4538,7 @@
 			)
 			(justify left)
 		)
-		(uuid "f1c54e41-ae65-5751-93f6-2153eed62ac8")
+		(uuid "de566621-2aa3-5f50-be2b-447b55fdaded")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 106.68 0)
 			(effects
@@ -4549,7 +4549,7 @@
 			)
 		)
 	)
-	(label "FT3_PRTPWR"
+	(label "FT2_PRTPWR"
 		(at 154.94 109.22 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4558,9 +4558,9 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f0e64c12-3eb4-542f-a56c-e28b99bbcbcd")
+		(uuid "ec932713-7d31-5098-9b49-929b698c8b0c")
 	)
-	(global_label "FT4_DM"
+	(global_label "FT1_DM"
 		(shape bidirectional)
 		(at 154.94 116.84 0)
 		(fields_autoplaced yes)
@@ -4570,7 +4570,7 @@
 			)
 			(justify left)
 		)
-		(uuid "91c354d0-4e26-5a2b-b14a-10c977570f2e")
+		(uuid "428f8b45-1ee3-5425-ba84-0a0d7d51fbbc")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 116.84 0)
 			(effects
@@ -4581,7 +4581,7 @@
 			)
 		)
 	)
-	(global_label "FT4_DP"
+	(global_label "FT1_DP"
 		(shape bidirectional)
 		(at 154.94 119.38 0)
 		(fields_autoplaced yes)
@@ -4591,7 +4591,7 @@
 			)
 			(justify left)
 		)
-		(uuid "5e356d9e-61a1-53d6-b3f6-fd582c9e8597")
+		(uuid "2b23c260-a6d2-5067-a3e8-7f09d52fca87")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 154.94 119.38 0)
 			(effects
@@ -4602,7 +4602,7 @@
 			)
 		)
 	)
-	(label "FT4_PRTPWR"
+	(label "FT1_PRTPWR"
 		(at 154.94 121.92 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4611,7 +4611,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1dbda16a-126c-5418-b4dc-6cc254c78fed")
+		(uuid "f8a41227-9423-5374-bf61-39221afb4738")
 	)
 	(label "HUB_XI"
 		(at 59.69 162.56 180)
@@ -6557,7 +6557,7 @@
 		)
 		(uuid "57c74f62-634b-5a22-b4bb-e5335092aef6")
 	)
-	(text "PRTPWRn -> FTn RESET# 0R links are DNP. Fit them (and remove FT RESET# pull-up) for uhubctl hard reset."
+	(text "Hub port 1..4 -> FT3, FT4, FT2, FT1 (uhubctl -p N)."
 		(exclude_from_sim no)
 		(at 25.4 27.94 0)
 		(effects
@@ -6566,7 +6566,18 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f62daf9f-3f59-507c-ad92-b3db97a1d9cb")
+		(uuid "d0676179-e566-5f7b-8e40-cc9f993a9d52")
+	)
+	(text "PRTPWR -> FT RESET# 0R links are DNP: fit them and remove the FT RESET# pull-up for hard reset."
+		(exclude_from_sim no)
+		(at 25.4 33.02 0)
+		(effects
+			(font
+				(size 2 2)
+			)
+			(justify left bottom)
+		)
+		(uuid "eaa41f13-648a-52ce-962f-f686948da57d")
 	)
 	(embedded_fonts no)
 )

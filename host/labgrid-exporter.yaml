@@ -1,0 +1,15 @@
+# Example labgrid exporter snippet: one USBSerialPort per channel.
+# Name each group after the place wired to that connector (write it in the back-side box).
+place-a64-pine64:
+  USBSerialPort:
+    match:
+      ID_SERIAL_SHORT: SBCU-1
+      ID_USB_INTERFACE_NUM: '00'     # CH01 (FT1 port A)
+    speed: 115200
+place-h616-x96:
+  USBSerialPort:
+    match:
+      ID_SERIAL_SHORT: SBCU-1
+      ID_USB_INTERFACE_NUM: '01'     # CH02
+    speed: 115200
+# CHnn -> SBCU-((nn-1)/4+1), interface (nn-1)%4
