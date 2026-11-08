@@ -13553,31 +13553,9 @@
 		)
 		(uuid "bf40090b-6f51-5c4e-b4c4-7755559e0f8d")
 	)
-	(label "CH13_RX"
-		(at 365.76 58.42 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0fa0d034-71e3-5629-a760-ca294b5676a1")
-	)
-	(label "CH13_TX"
-		(at 365.76 60.96 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "40d9be62-b23f-5841-91b7-22b0e5b952e7")
-	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 63.5 270)
+		(at 365.76 58.42 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13585,7 +13563,7 @@
 		(dnp no)
 		(uuid "13a8d5dd-b39d-5183-90bf-763e134cff13")
 		(property "Reference" "#PWR367"
-			(at 365.76 63.5 0)
+			(at 365.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13594,7 +13572,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 63.5 0)
+			(at 360.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13602,7 +13580,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 63.5 0)
+			(at 365.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13611,7 +13589,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 63.5 0)
+			(at 365.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13630,6 +13608,28 @@
 				)
 			)
 		)
+	)
+	(label "CH13_TX"
+		(at 365.76 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "40d9be62-b23f-5841-91b7-22b0e5b952e7")
+	)
+	(label "CH13_RX"
+		(at 365.76 63.5 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f18ca608-6926-590f-80f6-f551464780eb")
 	)
 	(label "FT4_B_TXO"
 		(at 287.02 50.8 180)
@@ -13898,31 +13898,9 @@
 		)
 		(uuid "64d8b9c9-7faa-5fc6-a108-f401da3d7558")
 	)
-	(label "CH14_RX"
-		(at 365.76 78.74 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "91e5b7c2-16d6-5d5b-8f30-b3772d848782")
-	)
-	(label "CH14_TX"
-		(at 365.76 81.28 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "1fa35757-70aa-5fa3-8e95-349b299c3eb4")
-	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 83.82 270)
+		(at 365.76 78.74 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13930,7 +13908,7 @@
 		(dnp no)
 		(uuid "e558eabb-ef04-5ed2-ac83-0596352e70b2")
 		(property "Reference" "#PWR371"
-			(at 365.76 83.82 0)
+			(at 365.76 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13939,7 +13917,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 83.82 0)
+			(at 360.76 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13947,7 +13925,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 83.82 0)
+			(at 365.76 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13956,7 +13934,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 83.82 0)
+			(at 365.76 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13975,6 +13953,28 @@
 				)
 			)
 		)
+	)
+	(label "CH14_TX"
+		(at 365.76 81.28 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1fa35757-70aa-5fa3-8e95-349b299c3eb4")
+	)
+	(label "CH14_RX"
+		(at 365.76 83.82 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b4f25b84-4583-5292-9b25-d9d8fd174c08")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -14789,31 +14789,9 @@
 		)
 		(uuid "445e53f4-5dcc-5274-b7f6-45e00c853148")
 	)
-	(label "CH15_RX"
-		(at 365.76 175.26 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "999707c4-1e6a-5ca4-928c-e6ceb1efe4d5")
-	)
-	(label "CH15_TX"
-		(at 365.76 177.8 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5d1aae74-ae8b-5ca3-b515-12cd0e7e997a")
-	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 180.34 270)
+		(at 365.76 175.26 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14821,7 +14799,7 @@
 		(dnp no)
 		(uuid "6aa5da4d-f729-53b9-b02e-d322dae53875")
 		(property "Reference" "#PWR382"
-			(at 365.76 180.34 0)
+			(at 365.76 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14830,7 +14808,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 180.34 0)
+			(at 360.76 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14838,7 +14816,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 180.34 0)
+			(at 365.76 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14847,7 +14825,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 180.34 0)
+			(at 365.76 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14866,6 +14844,28 @@
 				)
 			)
 		)
+	)
+	(label "CH15_TX"
+		(at 365.76 177.8 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5d1aae74-ae8b-5ca3-b515-12cd0e7e997a")
+	)
+	(label "CH15_RX"
+		(at 365.76 180.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5fd08ba6-d7b9-58bd-9f50-89ce155dd895")
 	)
 	(label "FT4_D_TXO"
 		(at 287.02 167.64 180)
@@ -15134,31 +15134,9 @@
 		)
 		(uuid "6341cb65-a094-551f-8e19-e2b7f33affad")
 	)
-	(label "CH16_RX"
-		(at 365.76 195.58 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "78420bee-a5d5-5535-85ee-d23408cd3bc8")
-	)
-	(label "CH16_TX"
-		(at 365.76 198.12 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0bfcaf44-4e57-5eb0-bf52-6db4745b37fd")
-	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 200.66 270)
+		(at 365.76 195.58 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15166,7 +15144,7 @@
 		(dnp no)
 		(uuid "ecdad8fb-d14b-5dba-adf7-c7ac533306bb")
 		(property "Reference" "#PWR386"
-			(at 365.76 200.66 0)
+			(at 365.76 195.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15175,7 +15153,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 200.66 0)
+			(at 360.76 195.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15183,7 +15161,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 200.66 0)
+			(at 365.76 195.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15192,7 +15170,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 200.66 0)
+			(at 365.76 195.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15211,6 +15189,28 @@
 				)
 			)
 		)
+	)
+	(label "CH16_TX"
+		(at 365.76 198.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0bfcaf44-4e57-5eb0-bf52-6db4745b37fd")
+	)
+	(label "CH16_RX"
+		(at 365.76 200.66 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "50935ffd-796f-5666-8b53-e303cae81e75")
 	)
 	(symbol
 		(lib_id "power:+3V3")

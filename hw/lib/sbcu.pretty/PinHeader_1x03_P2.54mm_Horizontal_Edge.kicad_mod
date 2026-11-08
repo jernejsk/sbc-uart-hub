@@ -2,7 +2,7 @@
 	(version 20241229)
 	(generator "kicad-footprint-generator")
 	(layer "F.Cu")
-	(descr "Right-angle 1x03 2.54 mm pin header, body flush with board edge, edge-clipped silkscreen (derived from PinHeader_1x03_P2.54mm_Horizontal.kicad_mod)")
+	(descr "Right-angle 1x03 2.54 mm pin header, body flush with board edge, edge-clipped silkscreen, mirrored pad numbering (derived from PinHeader_1x03_P2.54mm_Horizontal.kicad_mod)")
 	(tags "Through hole angled pin header THT 1x03 2.54mm single row")
 	(property "Reference" "REF**"
 		(at 4.385 -2.27 0)
@@ -324,7 +324,7 @@
 			)
 		)
 	)
-	(pad "1" thru_hole rect
+	(pad "3" thru_hole circle
 		(at 0 0)
 		(size 1.7 1.7)
 		(drill 1)
@@ -338,7 +338,7 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
-	(pad "3" thru_hole circle
+	(pad "1" thru_hole rect
 		(at 0 5.08)
 		(size 1.7 1.7)
 		(drill 1)

@@ -6,8 +6,9 @@ then: python3 gen/route.py 100
       python3 gen/rework_headers.py --fix-stubs     (joins old trace ends 0.36 mm off the new pads)
       python3 gen/finish.py
 
-The old board is the XH layout (git 3d51c3360c3e). Header pins are numbered 1=RX 2=TX 3=GND,
-so each signal lands within 0.1 mm (x) / 0.36 mm (y) of its old XH pad. Only track segments
+The old board is the XH layout (git 3d51c3360c3e). The project header footprint numbers its
+pads mirrored, so with pins 1=GND 2=TX 3=RX each signal lands within 0.1 mm (x) / 0.36 mm (y)
+of its old XH pad. Only track segments
 that end on a connector pad are removed; every other track and via is locked, so Freerouting
 only completes the 48 short pad stubs.
 """
@@ -23,7 +24,7 @@ import build_pcb as B  # noqa: E402
 MM = pcbnew.FromMM
 LIB = os.path.join(B.HW, 'lib', 'sbcu.pretty')
 NAME = 'PinHeader_1x03_P2.54mm_Horizontal_Edge'
-NEW_FROM_OLD = {'1': '3', '2': '2', '3': '1'}       # new pin -> old XH pin carrying the same net
+NEW_FROM_OLD = {'1': '1', '2': '2', '3': '3'}       # new pin -> old XH pin carrying the same net
 
 
 def main():

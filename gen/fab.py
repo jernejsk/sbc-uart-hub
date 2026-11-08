@@ -5,6 +5,8 @@ python3 gen/fab.py [--boards N]
 """
 import argparse
 import csv
+import json
+import math
 import os
 import re
 import shutil
@@ -22,11 +24,14 @@ FAB = os.path.join(ROOT, 'fab')
 PCB = os.path.join(HW, 'sbc-uart-hub.kicad_pcb')
 SCH = os.path.join(HW, 'sbc-uart-hub.kicad_sch')
 
-# JLC placement rotation offsets (footprint-name regex -> degrees). Verify in the
-# JLC PCBA preview: pin 1 / polarity of every IC, LED, crystal and connector.
-ROT = [
-    (r'^SOT-223', 180), (r'^SOT-23', 180), (r'^TSSOP-', 270), (r'^LQFP-', 270), (r'^QFN-', 270),
-]
+# Per-LCSC rotation/offset onto JLC's own footprints, measured by gen/jlc_rot.py.
+JLC_ROT = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'jlc_rot.json')))
+
+
+def kicad_rot(p, deg):
+    # KiCad orientation: positive = counter-clockwise on screen (y axis down)
+    a = math.radians(deg)
+    return (p[0] * math.cos(a) + p[1] * math.sin(a), -p[0] * math.sin(a) + p[1] * math.cos(a))
 
 
 def run(*a):
@@ -66,13 +71,14 @@ def bom_cpl(boards):
         if a & pcbnew.FP_EXCLUDE_FROM_POS_FILES:
             continue
         pos = fp.GetPosition()
-        rot = fp.GetOrientationDegrees()
-        for rx, off in ROT:
-            if re.search(rx, name):
-                rot += off
-                break
-        cpl.append((fp.GetReference(), pcbnew.ToMM(pos.x), -pcbnew.ToMM(pos.y),
-                    'Top' if fp.GetLayer() == pcbnew.F_Cu else 'Bottom', rot % 360))
+        phi = fp.GetOrientationDegrees()
+        if lcsc not in JLC_ROT:
+            raise SystemExit('%s (%s) not in jlc_rot.json, run gen/jlc_rot.py' % (lcsc, fp.GetReference()))
+        j = JLC_ROT[lcsc]
+        tx, ty = kicad_rot(j['offset'], phi)
+        x, y = pcbnew.ToMM(pos.x) + tx, pcbnew.ToMM(pos.y) + ty
+        cpl.append((fp.GetReference(), x, -y, 'Top' if fp.GetLayer() == pcbnew.F_Cu else 'Bottom',
+                    (phi + j['rotation']) % 360))
     nat = lambda r: (re.sub(r'\d', '', r), int(re.sub(r'\D', '', r) or 0))
     with open(os.path.join(FAB, 'bom_jlc.csv'), 'w', newline='') as f:
         w = csv.writer(f)

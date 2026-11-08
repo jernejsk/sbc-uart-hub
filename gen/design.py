@@ -47,7 +47,7 @@ VALUES = {
     ('L4020', '2u2'): ('C83423', 'SWPA4020S2R2MT'),
     ('PTC', '1.1A'): ('C20801', 'SMD1206P110TF'),
     ('XTAL', '12MHz'): ('C9002', 'X322512MSB4SI'),
-    ('XTAL', '24MHz'): ('C70590', 'X322524MOB4SI'),
+    ('XTAL', '24MHz'): ('C15643', 'X322524MSB4SI'),      # 20 pF CL, matches the 33 pF load caps
 }
 
 REFPFX = {'R0402': 'R', 'C0402': 'C', 'C0805': 'C', 'LED': 'D', 'FB': 'FB', 'L4020': 'L', 'PTC': 'F',
@@ -275,7 +275,7 @@ for n in range(1, 5):
             s.place('Connector_Generic:Conn_01x03', jref, 'Header 1x3 RA', (370.84, y0 + qi * 20.32 + 10.16),
                     fields=dict(fields('C492411', 'PZ254R-11-03P'), Channel='CH%02d' % ch),
                     fp='sbcu:PinHeader_1x03_P2.54mm_Horizontal_Edge',
-                    pins={'1': 'CH%02d_RX' % ch, '2': 'CH%02d_TX' % ch, '3': 'GND'})
+                    pins={'1': 'GND', '2': 'CH%02d_TX' % ch, '3': 'CH%02d_RX' % ch})
         t.add('C0402', '100n', '+3V3', 'GND')
 
 if __name__ == '__main__':

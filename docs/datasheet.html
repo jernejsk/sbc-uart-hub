@@ -284,9 +284,9 @@ footer { margin-top: 56px; padding-top: 12px; border-top: 1px solid var(--rule);
       <path d="M600 240 H520" class="bd-w" marker-end="url(#bda)"/>
       <rect x="800" y="140" width="80" height="116" class="bd-box"/>
       <text x="840" y="170" class="bd-t" text-anchor="middle">1×3 header</text>
-      <text x="840" y="190" class="bd-s" text-anchor="middle">1 RX ←</text>
+      <text x="840" y="190" class="bd-s" text-anchor="middle">1 GND</text>
       <text x="840" y="206" class="bd-s" text-anchor="middle">2 TX →</text>
-      <text x="840" y="222" class="bd-s" text-anchor="middle">3 GND</text>
+      <text x="840" y="222" class="bd-s" text-anchor="middle">3 RX ←</text>
       <text x="840" y="244" class="bd-s" text-anchor="middle">ESDA6V1</text>
     </svg>
   </div>
@@ -300,9 +300,9 @@ footer { margin-top: 56px; padding-top: 12px; border-top: 1px solid var(--rule);
     <thead><tr><th>Parameter</th><th>Conditions</th><th class="num">Min</th><th class="num">Typ</th><th class="num">Max</th><th>Unit</th></tr></thead>
     <tbody>
       <tr><td>Supply voltage (VBUS)</td><td>USB-C, bus powered</td><td class="num">4.5</td><td class="num">5.0</td><td class="num">5.5</td><td>V</td></tr>
-      <tr><td>Supply current</td><td>All 16 ports open, estimate</td><td class="num"></td><td class="num"></td><td class="num">≈ 0.4</td><td>A</td></tr>
+      <tr><td>Supply current from VBUS</td><td>All 16 ports open; datasheet typ / max figures, 90 % buck efficiency</td><td class="num"></td><td class="num">0.40</td><td class="num">0.49</td><td>A</td></tr>
       <tr><td>Input fuse</td><td>PTC hold current</td><td class="num"></td><td class="num">1.1</td><td class="num"></td><td>A</td></tr>
-      <tr><td>Internal rail</td><td>TLV62569 buck, FB 100k/22k</td><td class="num"></td><td class="num">3.33</td><td class="num"></td><td>V</td></tr>
+      <tr><td>Internal rail</td><td>TLV62569 buck (2 A), FB 100k/22k</td><td class="num"></td><td class="num">3.33</td><td class="num"></td><td>V</td></tr>
       <tr><td>Logic level, TX and RX</td><td>LVCMOS</td><td class="num"></td><td class="num">3.3</td><td class="num"></td><td>V</td></tr>
       <tr><td>TX series resistance</td><td>Buffer output to connector</td><td class="num"></td><td class="num">220</td><td class="num"></td><td>Ω</td></tr>
       <tr><td>RX series resistance</td><td>Connector to buffer input</td><td class="num"></td><td class="num">220</td><td class="num"></td><td>Ω</td></tr>
@@ -314,7 +314,7 @@ footer { margin-top: 56px; padding-top: 12px; border-top: 1px solid var(--rule);
       <tr><td>Max power descriptor</td><td>Per FT4232H EEPROM</td><td class="num"></td><td class="num">100</td><td class="num"></td><td>mA</td></tr>
     </tbody>
   </table></div>
-  <p class="note">The hub is strapped for bus-powered mode (CFG_SEL = 10, all ports non-removable). For that reason each FT4232H's EEPROM must declare 100 mA, and the host tooling does this.</p>
+  <p class="note">The hub is strapped for bus-powered mode (CFG_SEL = 10: default configuration with individual port power switching, bus-powered override) and NON_REM = 00 (all ports removable). A bus-powered hub may declare at most 500 mA in total, so each FT4232H's EEPROM declares 100 mA and the hub 100 mA. The worst-case draw is right at that limit.</p>
 </section>
 
 <section>
@@ -325,12 +325,12 @@ footer { margin-top: 56px; padding-top: 12px; border-top: 1px solid var(--rule);
       <div class="tw"><table>
         <thead><tr><th>Pin</th><th>Signal</th><th>Direction</th></tr></thead>
         <tbody>
-          <tr><td class="sym">1 (square)</td><td>RX</td><td>DUT TX → adapter</td></tr>
+          <tr><td class="sym">1 (square)</td><td>GND</td><td></td></tr>
           <tr><td class="sym">2</td><td>TX</td><td>adapter → DUT RX</td></tr>
-          <tr><td class="sym">3</td><td>GND</td><td></td></tr>
+          <tr><td class="sym">3</td><td>RX</td><td>DUT TX → adapter</td></tr>
         </tbody>
       </table></div>
-      <p class="note">LCSC C492411 (PZ254R-11-03P). The pins point out past the board edge. Pin 1 (RX) is on the left for CH01–CH08 and on the right for CH09–CH16, and RX/TX/GND is printed next to every pin. The pin order keeps each signal where it was on the earlier JST-XH layout, so that layout's routing was kept.</p>
+      <p class="note">LCSC C492411 (PZ254R-11-03P). The pins point out past the board edge. Pin 1 (GND, square pad) is on the right for CH01–CH08 and on the left for CH09–CH16, and GND/TX/RX is printed next to every pin.</p>
       <h3>Cables</h3>
       <p>Use standard female-to-female Dupont jumper wires, one wire per signal, so any SBC debug-header pin order works. Premium jumpers (for example Pololu, 26 AWG) come in 15, 30, 60 and 150 cm. Use black for GND.</p>
       <p class="note">Plugging a wire onto the wrong pin is harmless. No pin carries power, both signal lines have 220 Ω in series and go through a buffer, and a short or a TX-to-TX connection draws at most about 15 mA.</p>
@@ -567,7 +567,7 @@ $ uhubctl -l &lt;hub&gt; -p 4 -a cycle     # hard-reset FT1 (needs R14 fitted)</
       <tr><td>PCB DRC with schematic parity</td><td>0 violations, 0 unconnected, 0 footprint errors</td><td><span class="pill ok">Pass</span></td></tr>
       <tr><td>USB pair impedance</td><td>92–93 Ω (JLC solver)</td><td><span class="pill ok">Pass</span></td></tr>
       <tr><td>JLCPCB stock, 5 boards</td><td>All lines in stock</td><td><span class="pill ok">Pass</span></td></tr>
-      <tr><td>Assembly rotations (CPL)</td><td>USB-C, headers, LEDs and crystals to be checked in JLC's PCBA preview</td><td><span class="pill todo">Open</span></td></tr>
+      <tr><td>Assembly rotations (CPL)</td><td>Fitted to JLC's own footprints per LCSC part, with a body-side check. All pads within 0.21 mm, pin 1 / LED cathode matched on all 286 placements, header and USB-C bodies verified to point off the board edge</td><td><span class="pill ok">Pass</span></td></tr>
       <tr><td>Hard reset via hub port power</td><td>R14–R17 not fitted; behaviour not verified</td><td><span class="pill todo">Open</span></td></tr>
       <tr><td>Hardware bring-up</td><td>Enumeration, loopback at 115200 and 1.5 Mbaud, back-power test</td><td><span class="pill todo">After build</span></td></tr>
     </tbody>
@@ -579,7 +579,7 @@ $ uhubctl -l &lt;hub&gt; -p 4 -a cycle     # hard-reset FT1 (needs R14 fitted)</
   <p>Before the first order, a second opinion is most useful on these points:</p>
   <ol class="ask">
     <li><b>TX gating approach.</b> Is DTR the right gate for your tooling? Some terminal programs and ser2net configurations hold DTR in unexpected states.</li>
-    <li><b>USB2514B straps.</b> Check bus-powered mode, non-removable ports, BC_EN left low and the VBUS_DET divider against your experience with this hub.</li>
+    <li><b>USB2514B straps and power budget.</b> Check bus-powered mode, BC_EN left low and the VBUS_DET divider against your experience with this hub. Worst-case current is at the 500 mA bus-powered limit; is that acceptable for your hosts, or should rev B add a self-powered option?</li>
     <li><b>FT4232HL power and clocking.</b> Check VREGIN/VCORE/VPHY/VPLL decoupling and filtering, and the 12 MHz crystal load (27 pF).</li>
     <li><b>Connector choice.</b> Right-angle 2.54 mm headers with Dupont jumpers give up keying in exchange for cables from stock in any length. Will this hold up in your lab, or would you want a latching connector?</li>
     <li><b>Layout.</b> Look at the USB pair routing and polarity-swap vias, and at the FT decoupling placement. Most signal routing is autorouted.</li>

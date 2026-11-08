@@ -4,6 +4,9 @@
 PinHeader_1x03_P2.54mm_Horizontal_Edge: the stock right-angle header with all
 silkscreen that lies past the plastic body's inner face removed. The board places
 the body flush with the board edge (pads 4.04 mm in), so that silk would be clipped.
+Pad numbers run the other way (pad 1 at the stock footprint's pad-3 position) so that
+pin 1 = GND lands where the rev A JST-XH GND pad was and the routing is kept. The
+header itself is symmetric; JLC's placement is checked geometrically by gen/jlc_rot.py.
 """
 import os
 import sys
@@ -39,9 +42,13 @@ def main():
         if isinstance(n, list) and n and n[0] in ('fp_line', 'fp_rect', 'fp_poly', 'fp_arc') and is_silk(n) \
                 and max_x(n) > EDGE_X:
             continue
+        if isinstance(n, list) and n and n[0] == 'pad':
+            n = list(n)
+            n[1] = {'1': '3', '3': '1'}.get(str(n[1]), n[1])          # mirror numbering
+            n[2:4] = [Sym('thru_hole'), Sym('rect') if n[1] == '1' else Sym('circle')]
         if isinstance(n, list) and n and n[0] == 'descr':
             n = [n[0], 'Right-angle 1x03 2.54 mm pin header, body flush with board edge, '
-                       'edge-clipped silkscreen (derived from ' + os.path.basename(SRC) + ')']
+                       'edge-clipped silkscreen, mirrored pad numbering (derived from ' + os.path.basename(SRC) + ')']
         out.append(n)
     # inner face of the plastic body
     out.append([Sym('fp_line'), [Sym('start'), 1.39, -1.38], [Sym('end'), 1.39, 6.46],

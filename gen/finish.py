@@ -205,6 +205,10 @@ def main():
             fp.SetDNP(True)
         if fp:
             fp.SetValue(c['value'])
+            for k in ('LCSC', 'MPN'):
+                if k in c['props']:
+                    fp.SetField(k, c['props'][k])
+                    fp.GetFieldByName(k).SetVisible(False)
     clear_previous(board)
     print('removed dangling items:', clean_dangling(board))
     silkscreen(board)

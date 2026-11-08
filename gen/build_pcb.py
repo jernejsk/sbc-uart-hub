@@ -28,8 +28,9 @@ MM = pcbnew.FromMM
 # board geometry -----------------------------------------------------------
 BW, BH = 146.0, 100.0
 CONN_X0, CONN_PITCH = 34.0, 13.5        # first connector x (leftmost pin), pitch
-# Header pins are numbered 1=RX 2=TX 3=GND so every signal sits where it was on the rev A
-# JST-XH layout (RX/TX/GND x positions within 0.1 mm); the routing was kept from that layout.
+# Header pins: 1=GND 2=TX 3=RX. The project footprint (gen/mkfp.py) numbers its pads the
+# mirror of the stock one, so each signal sits where it was on the rev A JST-XH layout
+# (x within 0.1 mm) and the routing could be kept from that layout.
 # right-angle 2.54 mm headers: plastic body (1.5..4.04 mm behind the pads) flush with the board edge,
 # pins overhang the edge by ~6 mm
 HDR_P = 2.54
@@ -456,9 +457,9 @@ def place_all(P):
         top = ch <= 8
         x = CONN_X0 + i * CONN_PITCH
         if top:
-            P.put(r, x, CONN_Y_TOP, 90, force=True)                 # pins RX,TX,GND left to right
+            P.put(r, x, CONN_Y_TOP, 90, force=True)                 # left to right: RX (pad 3), TX, GND (pad 1)
         else:
-            P.put(r, x + 2 * HDR_P, CONN_Y_BOT, 270, force=True)    # pins GND,TX,RX left to right
+            P.put(r, x + 2 * HDR_P, CONN_Y_BOT, 270, force=True)    # left to right: GND (pad 1), TX, RX (pad 3)
     jref = {int(comps[r]['fields']['Channel'][2:]): r for r in conns}
 
     def chnets(ch):

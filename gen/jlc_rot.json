@@ -1,0 +1,332 @@
+{
+ "C1002": {
+  "footprint": "L_0603_1608Metric",
+  "jlc_footprint": "L0603",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.088
+ },
+ "C11702": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C12624": {
+  "footprint": "LED_0603_1608Metric",
+  "jlc_footprint": "LED0603-RD",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "K=1",
+  "max_pad_error": 0.037
+ },
+ "C141836": {
+  "footprint": "SOT-23-5",
+  "jlc_footprint": "SOT-23-5_L3.0-W1.7-P0.95-LS2.8-BR",
+  "rotation": 180,
+  "offset": [
+   0.0325,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.195
+ },
+ "C1525": {
+  "footprint": "C_0402_1005Metric",
+  "jlc_footprint": "C0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.06
+ },
+ "C1557": {
+  "footprint": "C_0402_1005Metric",
+  "jlc_footprint": "C0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.06
+ },
+ "C1562": {
+  "footprint": "C_0402_1005Metric",
+  "jlc_footprint": "C0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.06
+ },
+ "C15643": {
+  "footprint": "Crystal_SMD_3225-4Pin_3.2x2.5mm",
+  "jlc_footprint": "CRYSTAL-SMD_4P-L3.2-W2.5-BL",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.0
+ },
+ "C15850": {
+  "footprint": "C_0805_2012Metric",
+  "jlc_footprint": "C0805",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.05
+ },
+ "C16251": {
+  "footprint": "QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm",
+  "jlc_footprint": "VQFN-36_L6.0-W6.0-P0.50-BL-EP",
+  "rotation": 270,
+  "offset": [
+   0.0,
+   -0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.033
+ },
+ "C165948": {
+  "footprint": "USB_C_Receptacle_HRO_TYPE-C-31-M-12",
+  "jlc_footprint": "USB-C_SMD-TYPE-C-31-M-12_1",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   -1.575
+  ],
+  "match": "number",
+  "max_pad_error": 0.0
+ },
+ "C1779": {
+  "footprint": "C_0805_2012Metric",
+  "jlc_footprint": "C0805",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.05
+ },
+ "C190271": {
+  "footprint": "SOT-23-6",
+  "jlc_footprint": "SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR",
+  "rotation": 180,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.213
+ },
+ "C20801": {
+  "footprint": "Fuse_1206_3216Metric",
+  "jlc_footprint": "F1206",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.05
+ },
+ "C2286": {
+  "footprint": "LED_0603_1608Metric",
+  "jlc_footprint": "LED-SMD_L1.6-W0.8-R-RD",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "K=2",
+  "max_pad_error": 0.037
+ },
+ "C25091": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C25741": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C25744": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C25752": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C25768": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C25879": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C25905": {
+  "footprint": "R_0402_1005Metric",
+  "jlc_footprint": "R0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.08
+ },
+ "C2827672": {
+  "footprint": "SOT-23-6",
+  "jlc_footprint": "SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL",
+  "rotation": 270,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.013
+ },
+ "C492411": {
+  "footprint": "PinHeader_1x03_P2.54mm_Horizontal_Edge",
+  "jlc_footprint": "HDR-TH_3P-P2.54-H-M-W10.4",
+  "rotation": 90,
+  "offset": [
+   0.0,
+   2.54
+  ],
+  "match": "number",
+  "max_pad_error": 0.0
+ },
+ "C52923": {
+  "footprint": "C_0402_1005Metric",
+  "jlc_footprint": "C0402",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.06
+ },
+ "C56742": {
+  "footprint": "LQFP-64_10x10mm_P0.5mm",
+  "jlc_footprint": "LQFP-64_L10.0-W10.0-P0.50-LS12.0-TL",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.125
+ },
+ "C6059": {
+  "footprint": "TSSOP-14_4.4x5mm_P0.65mm",
+  "jlc_footprint": "TSSOP-14_L5.0-W4.4-P0.65-LS6.4-BL",
+  "rotation": 270,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.063
+ },
+ "C7519": {
+  "footprint": "SOT-23-6",
+  "jlc_footprint": "SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL",
+  "rotation": 270,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.013
+ },
+ "C83423": {
+  "footprint": "L_Taiyo-Yuden_NR-40xx",
+  "jlc_footprint": "IND-SMD_L4.0-W4.0",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.2
+ },
+ "C9002": {
+  "footprint": "Crystal_SMD_3225-4Pin_3.2x2.5mm",
+  "jlc_footprint": "CRYSTAL-SMD_4P-L3.2-W2.5-BL",
+  "rotation": 0,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "match": "number",
+  "max_pad_error": 0.0
+ }
+}
