@@ -7083,7 +7083,7 @@
 				)
 			)
 		)
-		(property "Value" "B3B-XH-A"
+		(property "Value" "Header 1x3 RA"
 			(at 373.38 64.77 0)
 			(effects
 				(font
@@ -7091,7 +7091,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
+		(property "Footprint" "sbcu:PinHeader_1x03_P2.54mm_Horizontal_Edge"
 			(at 370.84 60.96 0)
 			(effects
 				(font
@@ -7109,7 +7109,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C144394"
+		(property "LCSC" "C492411"
 			(at 370.84 60.96 0)
 			(effects
 				(font
@@ -7118,7 +7118,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "B3B-XH-A(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 			(at 370.84 60.96 0)
 			(effects
 				(font
@@ -7627,7 +7627,7 @@
 				)
 			)
 		)
-		(property "Value" "B3B-XH-A"
+		(property "Value" "Header 1x3 RA"
 			(at 373.38 85.09 0)
 			(effects
 				(font
@@ -7635,7 +7635,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
+		(property "Footprint" "sbcu:PinHeader_1x03_P2.54mm_Horizontal_Edge"
 			(at 370.84 81.28 0)
 			(effects
 				(font
@@ -7653,7 +7653,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C144394"
+		(property "LCSC" "C492411"
 			(at 370.84 81.28 0)
 			(effects
 				(font
@@ -7662,7 +7662,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "B3B-XH-A(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 			(at 370.84 81.28 0)
 			(effects
 				(font
@@ -8727,7 +8727,7 @@
 				)
 			)
 		)
-		(property "Value" "B3B-XH-A"
+		(property "Value" "Header 1x3 RA"
 			(at 373.38 181.61 0)
 			(effects
 				(font
@@ -8735,7 +8735,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
+		(property "Footprint" "sbcu:PinHeader_1x03_P2.54mm_Horizontal_Edge"
 			(at 370.84 177.8 0)
 			(effects
 				(font
@@ -8753,7 +8753,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C144394"
+		(property "LCSC" "C492411"
 			(at 370.84 177.8 0)
 			(effects
 				(font
@@ -8762,7 +8762,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "B3B-XH-A(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 			(at 370.84 177.8 0)
 			(effects
 				(font
@@ -9271,7 +9271,7 @@
 				)
 			)
 		)
-		(property "Value" "B3B-XH-A"
+		(property "Value" "Header 1x3 RA"
 			(at 373.38 201.93 0)
 			(effects
 				(font
@@ -9279,7 +9279,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
+		(property "Footprint" "sbcu:PinHeader_1x03_P2.54mm_Horizontal_Edge"
 			(at 370.84 198.12 0)
 			(effects
 				(font
@@ -9297,7 +9297,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C144394"
+		(property "LCSC" "C492411"
 			(at 370.84 198.12 0)
 			(effects
 				(font
@@ -9306,7 +9306,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "B3B-XH-A(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 			(at 370.84 198.12 0)
 			(effects
 				(font
@@ -13553,9 +13553,31 @@
 		)
 		(uuid "cb65b65b-91f4-5df2-9392-5e1856820531")
 	)
+	(label "CH09_RX"
+		(at 365.76 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "aca8ba54-4f28-58ef-9b6e-a83f212c1058")
+	)
+	(label "CH09_TX"
+		(at 365.76 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d80f07c3-6268-5f4a-a365-a8419ee434fc")
+	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 58.42 270)
+		(at 365.76 63.5 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13563,7 +13585,7 @@
 		(dnp no)
 		(uuid "a4837ec7-4442-5f3d-abc6-36448035b6b8")
 		(property "Reference" "#PWR287"
-			(at 365.76 58.42 0)
+			(at 365.76 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13572,7 +13594,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 58.42 0)
+			(at 360.76 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13580,7 +13602,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 58.42 0)
+			(at 365.76 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13589,7 +13611,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 58.42 0)
+			(at 365.76 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13608,28 +13630,6 @@
 				)
 			)
 		)
-	)
-	(label "CH09_TX"
-		(at 365.76 60.96 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d80f07c3-6268-5f4a-a365-a8419ee434fc")
-	)
-	(label "CH09_RX"
-		(at 365.76 63.5 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "60fa4c3a-0402-54d6-90e9-84991c3a987e")
 	)
 	(label "FT3_B_TXO"
 		(at 287.02 50.8 180)
@@ -13898,9 +13898,31 @@
 		)
 		(uuid "bcdec6ed-0cec-5626-8d09-41315a7ef775")
 	)
+	(label "CH10_RX"
+		(at 365.76 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fb407fe4-2f19-5561-821c-e7f05ea805ab")
+	)
+	(label "CH10_TX"
+		(at 365.76 81.28 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "adc1092d-d433-5dff-9192-5abd1c19f35d")
+	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 78.74 270)
+		(at 365.76 83.82 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13908,7 +13930,7 @@
 		(dnp no)
 		(uuid "510ae1b8-a2a3-5580-9bed-06b28bfd9130")
 		(property "Reference" "#PWR291"
-			(at 365.76 78.74 0)
+			(at 365.76 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13917,7 +13939,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 78.74 0)
+			(at 360.76 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13925,7 +13947,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 78.74 0)
+			(at 365.76 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13934,7 +13956,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 78.74 0)
+			(at 365.76 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13953,28 +13975,6 @@
 				)
 			)
 		)
-	)
-	(label "CH10_TX"
-		(at 365.76 81.28 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "adc1092d-d433-5dff-9192-5abd1c19f35d")
-	)
-	(label "CH10_RX"
-		(at 365.76 83.82 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "11dcadf8-d3cf-5c7d-8771-d4cfbf3803ec")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -14789,9 +14789,31 @@
 		)
 		(uuid "c1a91bb6-e817-5b65-978b-5727b3f83329")
 	)
+	(label "CH11_RX"
+		(at 365.76 175.26 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ffbf7501-2880-57ee-8485-1f584630a015")
+	)
+	(label "CH11_TX"
+		(at 365.76 177.8 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "44d01282-a17a-596b-b7f7-54a2d834069c")
+	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 175.26 270)
+		(at 365.76 180.34 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14799,7 +14821,7 @@
 		(dnp no)
 		(uuid "344d5e9e-2df0-57f9-bf8e-be786bdf5328")
 		(property "Reference" "#PWR302"
-			(at 365.76 175.26 0)
+			(at 365.76 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14808,7 +14830,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 175.26 0)
+			(at 360.76 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14816,7 +14838,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 175.26 0)
+			(at 365.76 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14825,7 +14847,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 175.26 0)
+			(at 365.76 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14844,28 +14866,6 @@
 				)
 			)
 		)
-	)
-	(label "CH11_TX"
-		(at 365.76 177.8 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "44d01282-a17a-596b-b7f7-54a2d834069c")
-	)
-	(label "CH11_RX"
-		(at 365.76 180.34 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "330b2021-ac9f-5406-a7b7-a8ea8e378132")
 	)
 	(label "FT3_D_TXO"
 		(at 287.02 167.64 180)
@@ -15134,9 +15134,31 @@
 		)
 		(uuid "eaa7e76e-dfb0-571b-ba57-61840db891bc")
 	)
+	(label "CH12_RX"
+		(at 365.76 195.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0c20d0c7-d520-5ecf-a9cf-9b2812c98149")
+	)
+	(label "CH12_TX"
+		(at 365.76 198.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bf1e62e5-6e63-5776-b7ca-cadfa1e41c2a")
+	)
 	(symbol
 		(lib_id "power:GND")
-		(at 365.76 195.58 270)
+		(at 365.76 200.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15144,7 +15166,7 @@
 		(dnp no)
 		(uuid "3323f493-1202-5900-ab9e-3cdf3c851e5f")
 		(property "Reference" "#PWR306"
-			(at 365.76 195.58 0)
+			(at 365.76 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15153,7 +15175,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 360.76 195.58 0)
+			(at 360.76 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15161,7 +15183,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 365.76 195.58 0)
+			(at 365.76 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15170,7 +15192,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 365.76 195.58 0)
+			(at 365.76 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15189,28 +15211,6 @@
 				)
 			)
 		)
-	)
-	(label "CH12_TX"
-		(at 365.76 198.12 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "bf1e62e5-6e63-5776-b7ca-cadfa1e41c2a")
-	)
-	(label "CH12_RX"
-		(at 365.76 200.66 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "8c34f00b-7828-5e73-b407-665e2413767c")
 	)
 	(symbol
 		(lib_id "power:+3V3")

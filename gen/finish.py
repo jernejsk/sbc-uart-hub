@@ -80,25 +80,30 @@ def silkscreen(board):
         if not ch:
             continue
         n = int(ch[2:])
-        p1 = fp.FindPadByNumber('1').GetPosition()
-        p3 = fp.FindPadByNumber('3').GetPosition()
-        cx = pcbnew.ToMM(p1.x + p3.x) / 2
-        py = pcbnew.ToMM(p1.y)
+        pads = {p.GetNumber(): p.GetPosition() for p in fp.Pads()}
+        cx = pcbnew.ToMM(pads['1'].x + pads['3'].x) / 2
+        py = pcbnew.ToMM(pads['1'].y)
         top = n <= 8
         sgn = 1 if top else -1
-        text(board, ch, cx, py + sgn * 3.9, pcbnew.F_SilkS, size=1.0, thick=0.18)
-        # back side: write-on box with pin legend, mirrored
+        # front: per-pin names just inside the pads, channel number below
+        names = {}
+        for p in fp.Pads():
+            net = p.GetNetname()
+            names[p.GetNumber()] = 'GND' if net == 'GND' else net.rsplit('_', 1)[-1]
+        for num, name in names.items():
+            text(board, name, pcbnew.ToMM(pads[num].x), py + sgn * 1.8, pcbnew.F_SilkS, size=0.6, thick=0.1)
+        text(board, ch, cx, py + sgn * 3.3, pcbnew.F_SilkS, size=1.0, thick=0.18)
+        # back side: write-on box with pin legend, mirrored (seen from the back, x order is reversed)
+        order = ' '.join(name for num, name in sorted(names.items(), key=lambda t: -pads[t[0]].x))
         by0 = py + sgn * 2.2
         by1 = py + sgn * 10.0
         rect(board, cx - 5.9, min(by0, by1), cx + 5.9, max(by0, by1), pcbnew.B_SilkS)
-        text(board, '%s  GND TX RX' % ch if not top else '%s  RX TX GND' % ch, cx, py + sgn * 3.5,
-             pcbnew.B_SilkS, size=0.7, thick=0.12, mirror=True)
+        text(board, '%s  %s' % (ch, order), cx, py + sgn * 3.5, pcbnew.B_SilkS, size=0.7, thick=0.12, mirror=True)
 
     # front legend
     text(board, 'SBC UART HUB  rev A', 9.0, 88.5, pcbnew.F_SilkS, size=1.2, thick=0.2, just='left')
-    text(board, '16x UART: USB2514B + 4x FT4232H', 9.0, 90.6, pcbnew.F_SilkS, size=0.8, thick=0.13, just='left')
-    text(board, 'XH: 1=GND(sq) 2=TX out 3=RX in', 9.0, 92.3, pcbnew.F_SilkS, size=0.8, thick=0.13,
-         just='left')
+    text(board, '16x UART, 4x FT4232H', 9.0, 90.6, pcbnew.F_SilkS, size=0.8, thick=0.13, just='left')
+    text(board, '2.54 mm headers, no VCC', 9.0, 92.3, pcbnew.F_SilkS, size=0.8, thick=0.13, just='left')
     text(board, 'LED = port open (DTR), TX gated', 13.0, 7.0, pcbnew.F_SilkS, size=0.8, thick=0.13)
     text(board, 'USB', 2.0, 42.5, pcbnew.F_SilkS, size=1.0, thick=0.18, rot=90)
     # back legend
@@ -108,6 +113,25 @@ def silkscreen(board):
          B.BW / 2, B.BH / 2, pcbnew.B_SilkS, size=0.9, thick=0.15, mirror=True)
     text(board, 'TX is Hi-Z unless the port is open (DTR asserted). No VCC on the DUT cable.',
          B.BW / 2, B.BH / 2 + 2.5, pcbnew.B_SilkS, size=0.9, thick=0.15, mirror=True)
+
+
+# 3D models missing from the KiCad library, taken from LCSC/EasyEDA (easyeda2kicad).
+# (file in hw/lib/3d, offset mm, rotation deg) - offsets checked against the pads in renders.
+MODELS = {
+    'J1': ('USB-C_SMD-TYPE-C-31-M-12_1.step', (0, -1.1, 0), (0, 0, 180)),
+    'L1': ('IND-SMD_L4.0-W4.0-H1.9.step', (0, 0, 0), (0, 0, 0)),
+}
+
+
+def models(board):
+    for ref, (f, off, rot) in MODELS.items():
+        fp = board.FindFootprintByReference(ref)
+        ms = fp.Models()
+        m = ms[0]
+        m.m_Filename = '${KIPRJMOD}/lib/3d/' + f
+        m.m_Offset = pcbnew.VECTOR3D(*off)
+        m.m_Rotation = pcbnew.VECTOR3D(*rot)
+        ms[0] = m
 
 
 def pours(board):
@@ -184,6 +208,7 @@ def main():
     clear_previous(board)
     print('removed dangling items:', clean_dangling(board))
     silkscreen(board)
+    models(board)
     pours(board)
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
     board.Save(PCB)

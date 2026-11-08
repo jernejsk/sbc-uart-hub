@@ -27,8 +27,13 @@ MM = pcbnew.FromMM
 
 # board geometry -----------------------------------------------------------
 BW, BH = 146.0, 100.0
-CONN_X0, CONN_PITCH = 34.0, 13.5        # first connector x (pin 1 side), pitch
-CONN_Y_TOP, CONN_Y_BOT = 4.4, BH - 4.4
+CONN_X0, CONN_PITCH = 34.0, 13.5        # first connector x (leftmost pin), pitch
+# Header pins are numbered 1=RX 2=TX 3=GND so every signal sits where it was on the rev A
+# JST-XH layout (RX/TX/GND x positions within 0.1 mm); the routing was kept from that layout.
+# right-angle 2.54 mm headers: plastic body (1.5..4.04 mm behind the pads) flush with the board edge,
+# pins overhang the edge by ~6 mm
+HDR_P = 2.54
+CONN_Y_TOP, CONN_Y_BOT = 4.04, BH - 4.04
 FT_POS = {1: (52.0, 34.0, 180), 2: (106.0, 34.0, 180), 3: (52.0, 66.0, 0), 4: (106.0, 66.0, 0)}
 HUB_POS = (22.0, 50.0, 180)
 USB_C_POS = (4.2, 50.0, -90)
@@ -147,7 +152,8 @@ class Placer:
             if not c['fp']:
                 continue
             lib, name = c['fp'].split(':')
-            fp = pcbnew.FootprintLoad(os.path.join(FPDIR, lib + '.pretty'), name)
+            libdir = os.path.join(HW, 'lib', lib + '.pretty') if lib == 'sbcu' else os.path.join(FPDIR, lib + '.pretty')
+            fp = pcbnew.FootprintLoad(libdir, name)
             fp.SetFPID(pcbnew.LIB_ID(lib, name))
             fp.SetReference(ref)
             fp.SetValue(c['value'])
@@ -364,6 +370,18 @@ def add_via(board, net, x, y, dia=0.6, drill=0.3):
     board.Add(v)
 
 
+def j1_vbus(board, P, j1='J1'):
+    """Tie the two USB-C VBUS pad pairs (A4/B9 and A9/B4) together: short F.Cu stubs to
+    vias and a B.Cu link. The autorouter tends to leave this connection open."""
+    net = P.board_net('VBUS') if hasattr(P, 'board_net') else board.FindNet('VBUS')
+    (xa, ya), (xb, yb) = P.pad_pos(j1, 'A4'), P.pad_pos(j1, 'A9')
+    vx = xa + 1.25
+    for y in (ya, yb):
+        add_track(board, net, [(xa, y), (vx, y)], pcbnew.F_Cu, 0.45)
+        add_via(board, net, vx, y)
+    add_track(board, net, [(vx, ya), (vx, yb)], pcbnew.B_Cu, 0.6)
+
+
 def usb_route(board, P, hub):
     for ft_n in (1, 2, 3, 4):
         dp_pin, dm_pin = HUB_FT_PINS[ft_n]
@@ -438,9 +456,10 @@ def place_all(P):
         top = ch <= 8
         x = CONN_X0 + i * CONN_PITCH
         if top:
-            P.put(r, x + 5.0, CONN_Y_TOP, 180, force=True)
+            P.put(r, x, CONN_Y_TOP, 90, force=True)                 # pins RX,TX,GND left to right
         else:
-            P.put(r, x, CONN_Y_BOT, 0, force=True)
+            P.put(r, x + 2 * HDR_P, CONN_Y_BOT, 270, force=True)    # pins GND,TX,RX left to right
+    jref = {int(comps[r]['fields']['Channel'][2:]): r for r in conns}
 
     def chnets(ch):
         return 'CH%02d_TX' % ch, 'CH%02d_RX' % ch
@@ -474,13 +493,13 @@ def place_all(P):
                 rled = [r for r in refs_where(lambda c: c['sheet'] == sheet and c['value'] == '1k')
                         if short(P.pin_net.get((r, '2'), '')) == 'FT%d_%s_LED_A' % (ft_n, port)][0]
                 P.put(rled, lx, ybase + sgn * 3.2, 90, force=True)
-                # series resistors right behind the connector
+                # series resistors right behind the connector (RX pin at x, TX pin at x + 2.54)
                 for r in refs_where(lambda c: c['sheet'] == sheet and c['value'] == '220R'):
                     ns = {short(v) for v in nets_of(r).values() if v}
                     if txn in ns:
-                        P.put(r, x + (1.25 if top else 1.25), ybase + sgn * 9.0, 90, force=True)
+                        P.put(r, x + 1.25, ybase + sgn * 9.0, 90, force=True)
                     if rxn in ns:
-                        P.put(r, x + (3.75 if top else 3.75), ybase + sgn * 9.0, 90, force=True)
+                        P.put(r, x + 3.75, ybase + sgn * 9.0, 90, force=True)
 
     # ---------------- pin-affinity placement for everything else
     ics = refs_where(lambda c: c['ref'].startswith('U') or c['ref'].startswith('Y') or c['ref'] == 'J1')
@@ -605,6 +624,7 @@ def main():
     P.build()
     place_all(P)
     usb_route(board, P, P.hub)
+    j1_vbus(board, P)
     outline(board)
     add_zone(board, 'GND', pcbnew.In1_Cu)
     add_zone(board, '+3V3', pcbnew.In2_Cu)

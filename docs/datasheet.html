@@ -1,0 +1,611 @@
+<title>SBC UART Hub rev A</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: classic component datasheet. Part-number masthead, features/applications/description on page one, then numbered spec sections on one column. */
+:root {
+  --paper: #ffffff;
+  --ink: #15202a;
+  --muted: #586674;
+  --rule: #d5dce3;
+  --fill: #f1f4f7;
+  --accent: #b0521a;      /* copper */
+  --mask: #1d5c44;        /* solder-mask green, used for the board in drawings */
+  --mask-fill: #e3efe9;
+  --ok: #1d7a4a;
+  --warn: #9a6200;
+  --f-display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10161c; --ink: #e4eaf0; --muted: #98a6b3; --rule: #2a3541; --fill: #17202a;
+    --accent: #e3894c; --mask: #5cb38c; --mask-fill: #15291f; --ok: #5cc28c; --warn: #e0a640;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10161c; --ink: #e4eaf0; --muted: #98a6b3; --rule: #2a3541; --fill: #17202a;
+  --accent: #e3894c; --mask: #5cb38c; --mask-fill: #15291f; --ok: #5cc28c; --warn: #e0a640;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 15px/1.55 var(--f-body);
+}
+.sheet {
+  max-width: 1000px; margin: 0 auto;
+  padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, .mono { font-family: var(--f-mono); font-size: 0.92em; }
+
+/* masthead */
+.mast { border-top: 6px solid var(--accent); padding-top: 14px; display: grid; gap: 6px; }
+.mast-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; }
+.pn { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 5vw, 44px); letter-spacing: 0.01em; line-height: 1.05; margin: 0; }
+.pn small { font-weight: 500; color: var(--muted); font-size: 0.55em; margin-left: 8px; }
+.meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); text-align: right; }
+.subtitle { font-family: var(--f-display); font-weight: 500; font-size: clamp(18px, 2.6vw, 22px); margin: 0; text-wrap: balance; }
+.status {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+  margin-top: 10px; padding: 10px 14px; background: var(--fill); border-left: 3px solid var(--warn);
+  font-size: 14px;
+}
+.status strong { color: var(--warn); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 12px; }
+.repo { font-family: var(--f-mono); font-size: 13.5px; }
+
+/* sections */
+section { margin-top: 44px; }
+h2 {
+  font-family: var(--f-display); font-weight: 600; font-size: 22px; letter-spacing: 0.01em;
+  margin: 0 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--ink);
+  display: flex; gap: 12px; align-items: baseline; text-wrap: balance;
+}
+h2 .num { font-family: var(--f-mono); font-size: 14px; color: var(--accent); font-weight: 500; }
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 17px; margin: 22px 0 8px; letter-spacing: 0.02em; }
+p { margin: 0 0 10px; max-width: 72ch; }
+
+.page1 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 36px; margin-top: 30px; }
+.page1 > div { min-width: 0; }
+.page1 h2 { font-size: 19px; }
+ul.feat { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+ul.feat li::marker { color: var(--accent); }
+.desc { grid-column: 1 / -1; }
+
+/* figures */
+figure { margin: 0; }
+figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.hero { margin-top: 30px; }
+.hero img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: #f4f5f6; }
+.views { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.views img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: #f4f5f6; }
+.views figure { min-width: 0; }
+
+.drawing { overflow-x: auto; border: 1px solid var(--rule); padding: 14px; background: var(--paper); }
+.drawing svg { display: block; width: 100%; min-width: 620px; height: auto; }
+
+/* block diagram */
+.bd-box { fill: var(--paper); stroke: var(--ink); stroke-width: 1.4; }
+.bd-hub { fill: var(--mask-fill); stroke: var(--mask); stroke-width: 1.6; }
+.bd-gate { fill: var(--fill); stroke: var(--muted); stroke-width: 1.2; }
+.bd-t { fill: var(--ink); font: 600 13px var(--f-body); }
+.bd-s { fill: var(--muted); font: 400 11px var(--f-mono); }
+.bd-w { stroke: var(--ink); stroke-width: 1.4; fill: none; }
+.bd-wa { stroke: var(--accent); stroke-width: 1.6; fill: none; }
+.bd-wd { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+.bd-ta { fill: var(--accent); font: 500 11px var(--f-mono); }
+
+/* mechanical */
+.m-board { fill: var(--mask-fill); stroke: var(--mask); stroke-width: 0.5; }
+.m-hole { fill: var(--paper); stroke: var(--ink); stroke-width: 0.3; }
+.m-keep { fill: none; stroke: var(--muted); stroke-width: 0.15; stroke-dasharray: 0.8 0.6; }
+.m-ic { fill: var(--paper); stroke: var(--muted); stroke-width: 0.25; }
+.m-conn { fill: var(--paper); stroke: var(--ink); stroke-width: 0.3; }
+.m-pin { fill: var(--ink); }
+.m-pin1 { fill: var(--accent); }
+.m-pinl { stroke: var(--ink); stroke-width: 0.64; }
+.m-pin1l { stroke: var(--accent); stroke-width: 0.64; }
+.m-lab { fill: var(--ink); font: 500 2.6px var(--f-mono); }
+.m-dim { stroke: var(--muted); stroke-width: 0.2; }
+.m-ext { stroke: var(--muted); stroke-width: 0.12; }
+.m-dimt { fill: var(--muted); font: 400 2.6px var(--f-mono); }
+
+/* tables */
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th { font-family: var(--f-display); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); border-bottom: 1.5px solid var(--ink); white-space: nowrap; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+td.sym { font-family: var(--f-mono); font-size: 13px; white-space: nowrap; }
+tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--fill) 55%, transparent); }
+.note { font-size: 13px; color: var(--muted); margin-top: 8px; max-width: 80ch; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; }
+.two > div { min-width: 0; }
+
+.pill { display: inline-block; font: 600 11px var(--f-body); letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; }
+.pill.ok { color: var(--ok); }
+.pill.todo { color: var(--warn); }
+
+ol.ask { padding-left: 22px; display: grid; gap: 8px; margin: 0; max-width: 80ch; }
+ol.ask li::marker { font-family: var(--f-mono); color: var(--accent); }
+
+pre { font-family: var(--f-mono); font-size: 13px; background: var(--fill); padding: 12px 14px; overflow-x: auto; margin: 8px 0 0; line-height: 1.5; }
+
+.files { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 24px; }
+.files a { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); min-width: 0; }
+.files a span:last-child { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; text-align: right; }
+.files a:hover span:first-child { color: var(--accent); }
+
+footer { margin-top: 56px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+@media (max-width: 720px) {
+  .page1, .two, .views { grid-template-columns: 1fr; }
+  .meta { text-align: left; }
+}
+</style>
+
+<div class="sheet">
+
+<header class="mast">
+  <div class="mast-row">
+    <h1 class="pn">SBC UART Hub <small>rev A</small></h1>
+    <div class="meta">Technical datasheet · design review draft<br>2026-11-08</div>
+  </div>
+  <p class="subtitle">16-channel, DTR-gated, 3.3 V debug-UART adapter on a single USB cable</p>
+  <div class="status">
+    <strong>Pre-production</strong>
+    <span>The design is complete and passes its checks, but no board has been built yet. Comments are welcome before the first JLCPCB order.</span>
+  </div>
+  <div class="status" style="border-left-color: var(--accent)">
+    <span>Source, fab files and scripts:</span>
+    <a class="repo" href="https://github.com/jernejsk/sbc-uart-hub">github.com/jernejsk/sbc-uart-hub</a>
+  </div>
+</header>
+
+<div class="page1">
+  <div>
+    <h2>Features</h2>
+    <ul class="feat">
+      <li>16 independent UARTs from 4× FTDI FT4232HL behind a USB2514B USB 2.0 high-speed hub</li>
+      <li>One USB-C cable, bus powered</li>
+      <li>TX line is high-impedance unless the host has the port open (gated by the channel's DTR#)</li>
+      <li>TX and RX both buffered by 74LVC125A (I<sub>off</sub>), so an unpowered adapter does not back-power a DUT through its pins</li>
+      <li>No VCC on the DUT cable. Each connector has GND, TX and RX only</li>
+      <li>220 Ω series resistors and ESD clamps on every connector pin, so a cable plugged in the wrong way round cannot damage either side</li>
+      <li>Right-angle 2.54 mm pin headers, numbered CH01–CH16, with GND/TX/RX marked at each pin. They take standard female Dupont jumper wires, so no custom cables are needed</li>
+      <li>Write-on label box on the back for each channel</li>
+      <li>Green "port open" LED per channel</li>
+      <li>Unique EEPROM serial per FT4232H (<code>SBCU-1</code>…<code>SBCU-4</code>) for stable udev names</li>
+      <li>Optional per-chip hard reset via hub port power (<code>uhubctl</code>)</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Applications</h2>
+    <ul class="feat">
+      <li>Board farms and CI labs (labgrid, LAVA, ser2net)</li>
+      <li>Bootloader and kernel bring-up across many SBCs at once</li>
+      <li>Serial consoles for boards that are power-cycled under automation</li>
+    </ul>
+    <h2 style="margin-top:22px">At a glance</h2>
+    <div class="tw"><table>
+      <tbody>
+        <tr><td>Channels</td><td class="num">16</td></tr>
+        <tr><td>Logic level</td><td class="num">3.3 V LVCMOS</td></tr>
+        <tr><td>Max baud rate</td><td class="num">12 Mbaud</td></tr>
+        <tr><td>Host interface</td><td class="num">USB 2.0 HS, USB-C</td></tr>
+        <tr><td>DUT connector</td><td class="num">1×3 2.54 mm, right angle</td></tr>
+        <tr><td>Board size</td><td class="num">146 × 100 × 1.6 mm</td></tr>
+        <tr><td>Layers</td><td class="num">4</td></tr>
+        <tr><td>Parts cost (5 boards)</td><td class="num">≈ $59 / board</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="desc">
+    <h2>Description</h2>
+    <p>The SBC UART Hub puts sixteen debug consoles on one USB port. It was designed for a farm of about thirty Allwinner and Rockchip single-board computers. Those boards are power-cycled automatically, and a plain USB-serial adapter would keep feeding current into a powered-off board through its TX pin.</p>
+    <p>Each channel's TX goes through a tri-state buffer whose output-enable is that channel's DTR# line. When software opens the port, DTR is asserted and TX is driven. When the port is closed, or the adapter is unplugged, TX is high-impedance. RX is buffered the same way, with the buffer always enabled. The 74LVC family's I<sub>off</sub> feature keeps both pins high-impedance when the adapter itself has no power.</p>
+  </div>
+</div>
+
+<figure class="hero">
+  <img src="img/render-iso.png" alt="3D render of the SBC UART Hub, isometric view of the top side, showing four FT4232HL chips in a 2 by 2 grid, the USB hub and USB-C connector on the left, and eight right-angle pin headers along each long edge" width="2384" height="1488">
+  <figcaption><b>Figure 1.</b> 3D render, top side. KiCad 9 raytrace; component models from the KiCad library.</figcaption>
+</figure>
+<div class="views">
+  <figure>
+    <img src="img/render-top.png" alt="Top view render of the board with silkscreen channel labels" width="1992" height="1376">
+    <figcaption><b>Figure 2.</b> Top. Channel labels CH01–CH16 sit next to each connector.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/render-bottom.png" alt="Bottom view render showing the write-on boxes for labgrid place names" width="1992" height="1376">
+    <figcaption><b>Figure 3.</b> Bottom. Each write-on box holds a labgrid place name. Only the header solder joints are on this side.</figcaption>
+  </figure>
+</div>
+
+<section>
+  <h2><span class="num">1</span>Block diagram</h2>
+  <div class="drawing">
+    <svg viewBox="0 0 900 360" role="img" aria-label="Block diagram: USB-C to ESD and polyfuse, to USB2514B hub, to four FT4232HL chips; each chip has four channels, each with a DTR-gated TX buffer and an RX buffer to a 1x3 pin header">
+      <defs><marker id="bda" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--ink)"/></marker></defs>
+      <rect x="10" y="150" width="90" height="56" class="bd-box"/>
+      <text x="55" y="174" class="bd-t" text-anchor="middle">USB-C</text>
+      <text x="55" y="192" class="bd-s" text-anchor="middle">USBLC6, PTC</text>
+      <rect x="10" y="250" width="90" height="56" class="bd-box"/>
+      <text x="55" y="274" class="bd-t" text-anchor="middle">TLV62569</text>
+      <text x="55" y="292" class="bd-s" text-anchor="middle">5 V → 3.3 V</text>
+      <path d="M55 206 V250" class="bd-w" marker-end="url(#bda)"/>
+      <text x="62" y="232" class="bd-s">VBUS</text>
+      <rect x="140" y="130" width="110" height="96" class="bd-hub"/>
+      <text x="195" y="168" class="bd-t" text-anchor="middle">USB2514B</text>
+      <text x="195" y="186" class="bd-s" text-anchor="middle">4-port HS hub</text>
+      <text x="195" y="202" class="bd-s" text-anchor="middle">24 MHz</text>
+      <path d="M100 178 H140" class="bd-w" marker-end="url(#bda)"/>
+      <!-- FT chips -->
+      <g>
+        <rect x="300" y="20"  width="120" height="62" class="bd-box"/><text x="360" y="46" class="bd-t" text-anchor="middle">FT4232HL #1</text><text x="360" y="64" class="bd-s" text-anchor="middle">CH01–04 · port 4</text>
+        <rect x="300" y="104" width="120" height="62" class="bd-box"/><text x="360" y="130" class="bd-t" text-anchor="middle">FT4232HL #2</text><text x="360" y="148" class="bd-s" text-anchor="middle">CH05–08 · port 3</text>
+        <rect x="300" y="188" width="120" height="62" class="bd-box"/><text x="360" y="214" class="bd-t" text-anchor="middle">FT4232HL #3</text><text x="360" y="232" class="bd-s" text-anchor="middle">CH09–12 · port 1</text>
+        <rect x="300" y="272" width="120" height="62" class="bd-box"/><text x="360" y="298" class="bd-t" text-anchor="middle">FT4232HL #4</text><text x="360" y="316" class="bd-s" text-anchor="middle">CH13–16 · port 2</text>
+        <path d="M250 150 H275 V51 H300" class="bd-w" marker-end="url(#bda)"/>
+        <path d="M250 165 H285 V135 H300" class="bd-w" marker-end="url(#bda)"/>
+        <path d="M250 190 H285 V219 H300" class="bd-w" marker-end="url(#bda)"/>
+        <path d="M250 205 H275 V303 H300" class="bd-w" marker-end="url(#bda)"/>
+      </g>
+      <!-- one channel detail -->
+      <rect x="470" y="96" width="420" height="168" fill="none" stroke="var(--rule)" stroke-dasharray="5 4"/>
+      <text x="480" y="114" class="bd-s">one channel (×16)</text>
+      <path d="M420 135 H470" class="bd-wd"/>
+      <text x="490" y="152" class="bd-ta">TXD</text>
+      <path d="M490 160 H600" class="bd-w"/>
+      <polygon points="600,145 600,175 632,160" class="bd-gate"/>
+      <text x="606" y="140" class="bd-s">LVC125</text>
+      <path d="M632 160 H662" class="bd-w"/>
+      <rect x="662" y="153" width="34" height="14" class="bd-gate"/><text x="679" y="185" class="bd-s" text-anchor="middle">220 Ω</text>
+      <path d="M696 160 H800" class="bd-w" marker-end="url(#bda)"/>
+      <text x="490" y="215" class="bd-ta">DTR#</text>
+      <path d="M520 211 H612 V172" class="bd-wa" />
+      <circle cx="612" cy="172" r="3" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="624" y="215" class="bd-ta">/OE: port closed → TX Hi-Z</text>
+      <text x="490" y="250" class="bd-ta" style="fill:var(--muted)">RXD</text>
+      <path d="M800 240 H696" class="bd-w"/>
+      <rect x="662" y="233" width="34" height="14" class="bd-gate"/>
+      <path d="M662 240 H632" class="bd-w"/>
+      <polygon points="632,225 632,255 600,240" class="bd-gate"/>
+      <path d="M600 240 H520" class="bd-w" marker-end="url(#bda)"/>
+      <rect x="800" y="140" width="80" height="116" class="bd-box"/>
+      <text x="840" y="170" class="bd-t" text-anchor="middle">1×3 header</text>
+      <text x="840" y="190" class="bd-s" text-anchor="middle">1 RX ←</text>
+      <text x="840" y="206" class="bd-s" text-anchor="middle">2 TX →</text>
+      <text x="840" y="222" class="bd-s" text-anchor="middle">3 GND</text>
+      <text x="840" y="244" class="bd-s" text-anchor="middle">ESDA6V1</text>
+    </svg>
+  </div>
+  <p class="note">The hub ports are not wired in chip order. The order shown (port 4 → FT1, 3 → FT2, 1 → FT3, 2 → FT4) keeps the four USB pairs from crossing on the PCB. It matters only for <code>uhubctl -p</code>.</p>
+</section>
+
+<section>
+  <h2><span class="num">2</span>Electrical characteristics</h2>
+  <p class="note" style="margin-top:0">Design values from component datasheets. Nothing has been measured on hardware yet.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Parameter</th><th>Conditions</th><th class="num">Min</th><th class="num">Typ</th><th class="num">Max</th><th>Unit</th></tr></thead>
+    <tbody>
+      <tr><td>Supply voltage (VBUS)</td><td>USB-C, bus powered</td><td class="num">4.5</td><td class="num">5.0</td><td class="num">5.5</td><td>V</td></tr>
+      <tr><td>Supply current</td><td>All 16 ports open, estimate</td><td class="num"></td><td class="num"></td><td class="num">≈ 0.4</td><td>A</td></tr>
+      <tr><td>Input fuse</td><td>PTC hold current</td><td class="num"></td><td class="num">1.1</td><td class="num"></td><td>A</td></tr>
+      <tr><td>Internal rail</td><td>TLV62569 buck, FB 100k/22k</td><td class="num"></td><td class="num">3.33</td><td class="num"></td><td>V</td></tr>
+      <tr><td>Logic level, TX and RX</td><td>LVCMOS</td><td class="num"></td><td class="num">3.3</td><td class="num"></td><td>V</td></tr>
+      <tr><td>TX series resistance</td><td>Buffer output to connector</td><td class="num"></td><td class="num">220</td><td class="num"></td><td>Ω</td></tr>
+      <tr><td>RX series resistance</td><td>Connector to buffer input</td><td class="num"></td><td class="num">220</td><td class="num"></td><td>Ω</td></tr>
+      <tr><td>RX idle pull-up</td><td>Buffer input to 3.3 V</td><td class="num"></td><td class="num">100</td><td class="num"></td><td>kΩ</td></tr>
+      <tr><td>TX output state, port closed</td><td>DTR# high</td><td colspan="3" class="num">Hi-Z</td><td></td></tr>
+      <tr><td>TX/RX state, adapter unpowered</td><td>74LVC125A I<sub>off</sub></td><td colspan="3" class="num">Hi-Z</td><td></td></tr>
+      <tr><td>Baud rate</td><td>FT4232H UART mode</td><td class="num"></td><td class="num"></td><td class="num">12 M</td><td>baud</td></tr>
+      <tr><td>Connector ESD clamp</td><td>ESDA6V1-5SC6, to GND</td><td class="num"></td><td class="num">6.1</td><td class="num"></td><td>V</td></tr>
+      <tr><td>Max power descriptor</td><td>Per FT4232H EEPROM</td><td class="num"></td><td class="num">100</td><td class="num"></td><td>mA</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The hub is strapped for bus-powered mode (CFG_SEL = 10, all ports non-removable). For that reason each FT4232H's EEPROM must declare 100 mA, and the host tooling does this.</p>
+</section>
+
+<section>
+  <h2><span class="num">3</span>Connectors and channel map</h2>
+  <div class="two">
+    <div>
+      <h3>DUT connector: 1×3 pin header, 2.54 mm, right angle</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Pin</th><th>Signal</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">1 (square)</td><td>RX</td><td>DUT TX → adapter</td></tr>
+          <tr><td class="sym">2</td><td>TX</td><td>adapter → DUT RX</td></tr>
+          <tr><td class="sym">3</td><td>GND</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">LCSC C492411 (PZ254R-11-03P). The pins point out past the board edge. Pin 1 (RX) is on the left for CH01–CH08 and on the right for CH09–CH16, and RX/TX/GND is printed next to every pin. The pin order keeps each signal where it was on the earlier JST-XH layout, so that layout's routing was kept.</p>
+      <h3>Cables</h3>
+      <p>Use standard female-to-female Dupont jumper wires, one wire per signal, so any SBC debug-header pin order works. Premium jumpers (for example Pololu, 26 AWG) come in 15, 30, 60 and 150 cm. Use black for GND.</p>
+      <p class="note">Plugging a wire onto the wrong pin is harmless. No pin carries power, both signal lines have 220 Ω in series and go through a buffer, and a short or a TX-to-TX connection draws at most about 15 mA.</p>
+      <h3>Host connector</h3>
+      <p>USB-C receptacle (HRO TYPE-C-31-M-12), USB 2.0 only, 5.1 kΩ CC pull-downs. Either cable orientation works.</p>
+    </div>
+    <div>
+      <h3>Channel map</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Channels</th><th>Chip</th><th>EEPROM serial</th><th class="num">Hub port</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">CH01–04</td><td>FT1 (U4)</td><td class="sym">SBCU-1</td><td class="num">4</td></tr>
+          <tr><td class="sym">CH05–08</td><td>FT2 (U8)</td><td class="sym">SBCU-2</td><td class="num">3</td></tr>
+          <tr><td class="sym">CH09–12</td><td>FT3 (U12)</td><td class="sym">SBCU-3</td><td class="num">1</td></tr>
+          <tr><td class="sym">CH13–16</td><td>FT4 (U16)</td><td class="sym">SBCU-4</td><td class="num">2</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Within a chip, interfaces A–D (USB interface 00–03) map to the four channels in order. The udev rules create <code>/dev/sbcu/ch01</code> … <code>/dev/sbcu/ch16</code>.</p>
+      <h3>Indicators</h3>
+      <p>Red LED D1: 3.3 V present. Green LED per channel: DTR asserted, meaning the port is open and TX is driven.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">4</span>Mechanical</h2>
+  <div class="drawing">
+    <svg class="mech" viewBox="-16 -16 178 136" role="img" aria-label="Mechanical outline, top view, dimensions in millimetres">
+<defs><marker id="ar" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L6,3 L0,6 z" fill="var(--muted)"/></marker></defs>
+<rect x="0" y="0" width="146" height="100" class="m-board"/>
+<circle cx="3.5" cy="3.5" r="1.6" class="m-hole"/><circle cx="3.5" cy="3.5" r="3.0" class="m-keep"/>
+<circle cx="142.5" cy="3.5" r="1.6" class="m-hole"/><circle cx="142.5" cy="3.5" r="3.0" class="m-keep"/>
+<circle cx="3.5" cy="96.5" r="1.6" class="m-hole"/><circle cx="3.5" cy="96.5" r="3.0" class="m-keep"/>
+<circle cx="142.5" cy="96.5" r="1.6" class="m-hole"/><circle cx="142.5" cy="96.5" r="3.0" class="m-keep"/>
+<rect x="46" y="28" width="12" height="12" class="m-ic"/>
+<rect x="100" y="28" width="12" height="12" class="m-ic"/>
+<rect x="46" y="60" width="12" height="12" class="m-ic"/>
+<rect x="100" y="60" width="12" height="12" class="m-ic"/>
+<rect x="18.5" y="46.5" width="7" height="7" class="m-ic"/>
+<rect x="0" y="45.5" width="7.6" height="9" class="m-conn"/>
+<text x="9.5" y="51" class="m-lab" text-anchor="start">USB-C</text>
+<rect x="32.73" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="34.0" y1="4.04" x2="34.0" y2="-6.0" class="m-pin1l"/>
+<line x1="36.54" y1="4.04" x2="36.54" y2="-6.0" class="m-pinl"/>
+<line x1="39.08" y1="4.04" x2="39.08" y2="-6.0" class="m-pinl"/>
+<text x="36.54" y="9.0" class="m-lab" text-anchor="middle">CH01</text>
+<rect x="32.73" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="34.0" y1="95.96" x2="34.0" y2="106.0" class="m-pinl"/>
+<line x1="36.54" y1="95.96" x2="36.54" y2="106.0" class="m-pinl"/>
+<line x1="39.08" y1="95.96" x2="39.08" y2="106.0" class="m-pin1l"/>
+<text x="36.54" y="93.4" class="m-lab" text-anchor="middle">CH09</text>
+<rect x="46.23" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="47.5" y1="4.04" x2="47.5" y2="-6.0" class="m-pin1l"/>
+<line x1="50.04" y1="4.04" x2="50.04" y2="-6.0" class="m-pinl"/>
+<line x1="52.58" y1="4.04" x2="52.58" y2="-6.0" class="m-pinl"/>
+<text x="50.04" y="9.0" class="m-lab" text-anchor="middle">CH02</text>
+<rect x="46.23" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="47.5" y1="95.96" x2="47.5" y2="106.0" class="m-pinl"/>
+<line x1="50.04" y1="95.96" x2="50.04" y2="106.0" class="m-pinl"/>
+<line x1="52.58" y1="95.96" x2="52.58" y2="106.0" class="m-pin1l"/>
+<text x="50.04" y="93.4" class="m-lab" text-anchor="middle">CH10</text>
+<rect x="59.73" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="61.0" y1="4.04" x2="61.0" y2="-6.0" class="m-pin1l"/>
+<line x1="63.54" y1="4.04" x2="63.54" y2="-6.0" class="m-pinl"/>
+<line x1="66.08" y1="4.04" x2="66.08" y2="-6.0" class="m-pinl"/>
+<text x="63.54" y="9.0" class="m-lab" text-anchor="middle">CH03</text>
+<rect x="59.73" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="61.0" y1="95.96" x2="61.0" y2="106.0" class="m-pinl"/>
+<line x1="63.54" y1="95.96" x2="63.54" y2="106.0" class="m-pinl"/>
+<line x1="66.08" y1="95.96" x2="66.08" y2="106.0" class="m-pin1l"/>
+<text x="63.54" y="93.4" class="m-lab" text-anchor="middle">CH11</text>
+<rect x="73.23" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="74.5" y1="4.04" x2="74.5" y2="-6.0" class="m-pin1l"/>
+<line x1="77.04" y1="4.04" x2="77.04" y2="-6.0" class="m-pinl"/>
+<line x1="79.58" y1="4.04" x2="79.58" y2="-6.0" class="m-pinl"/>
+<text x="77.04" y="9.0" class="m-lab" text-anchor="middle">CH04</text>
+<rect x="73.23" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="74.5" y1="95.96" x2="74.5" y2="106.0" class="m-pinl"/>
+<line x1="77.04" y1="95.96" x2="77.04" y2="106.0" class="m-pinl"/>
+<line x1="79.58" y1="95.96" x2="79.58" y2="106.0" class="m-pin1l"/>
+<text x="77.04" y="93.4" class="m-lab" text-anchor="middle">CH12</text>
+<rect x="86.73" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="88.0" y1="4.04" x2="88.0" y2="-6.0" class="m-pin1l"/>
+<line x1="90.54" y1="4.04" x2="90.54" y2="-6.0" class="m-pinl"/>
+<line x1="93.08" y1="4.04" x2="93.08" y2="-6.0" class="m-pinl"/>
+<text x="90.54" y="9.0" class="m-lab" text-anchor="middle">CH05</text>
+<rect x="86.73" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="88.0" y1="95.96" x2="88.0" y2="106.0" class="m-pinl"/>
+<line x1="90.54" y1="95.96" x2="90.54" y2="106.0" class="m-pinl"/>
+<line x1="93.08" y1="95.96" x2="93.08" y2="106.0" class="m-pin1l"/>
+<text x="90.54" y="93.4" class="m-lab" text-anchor="middle">CH13</text>
+<rect x="100.23" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="101.5" y1="4.04" x2="101.5" y2="-6.0" class="m-pin1l"/>
+<line x1="104.04" y1="4.04" x2="104.04" y2="-6.0" class="m-pinl"/>
+<line x1="106.58" y1="4.04" x2="106.58" y2="-6.0" class="m-pinl"/>
+<text x="104.04" y="9.0" class="m-lab" text-anchor="middle">CH06</text>
+<rect x="100.23" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="101.5" y1="95.96" x2="101.5" y2="106.0" class="m-pinl"/>
+<line x1="104.04" y1="95.96" x2="104.04" y2="106.0" class="m-pinl"/>
+<line x1="106.58" y1="95.96" x2="106.58" y2="106.0" class="m-pin1l"/>
+<text x="104.04" y="93.4" class="m-lab" text-anchor="middle">CH14</text>
+<rect x="113.73" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="115.0" y1="4.04" x2="115.0" y2="-6.0" class="m-pin1l"/>
+<line x1="117.54" y1="4.04" x2="117.54" y2="-6.0" class="m-pinl"/>
+<line x1="120.08" y1="4.04" x2="120.08" y2="-6.0" class="m-pinl"/>
+<text x="117.54" y="9.0" class="m-lab" text-anchor="middle">CH07</text>
+<rect x="113.73" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="115.0" y1="95.96" x2="115.0" y2="106.0" class="m-pinl"/>
+<line x1="117.54" y1="95.96" x2="117.54" y2="106.0" class="m-pinl"/>
+<line x1="120.08" y1="95.96" x2="120.08" y2="106.0" class="m-pin1l"/>
+<text x="117.54" y="93.4" class="m-lab" text-anchor="middle">CH15</text>
+<rect x="127.23" y="0" width="7.62" height="2.54" class="m-conn"/>
+<line x1="128.5" y1="4.04" x2="128.5" y2="-6.0" class="m-pin1l"/>
+<line x1="131.04" y1="4.04" x2="131.04" y2="-6.0" class="m-pinl"/>
+<line x1="133.58" y1="4.04" x2="133.58" y2="-6.0" class="m-pinl"/>
+<text x="131.04" y="9.0" class="m-lab" text-anchor="middle">CH08</text>
+<rect x="127.23" y="97.46" width="7.62" height="2.54" class="m-conn"/>
+<line x1="128.5" y1="95.96" x2="128.5" y2="106.0" class="m-pinl"/>
+<line x1="131.04" y1="95.96" x2="131.04" y2="106.0" class="m-pinl"/>
+<line x1="133.58" y1="95.96" x2="133.58" y2="106.0" class="m-pin1l"/>
+<text x="131.04" y="93.4" class="m-lab" text-anchor="middle">CH16</text>
+<text x="52" y="35.2" class="m-lab" text-anchor="middle">FT1</text>
+<text x="106" y="35.2" class="m-lab" text-anchor="middle">FT2</text>
+<text x="52" y="67.2" class="m-lab" text-anchor="middle">FT3</text>
+<text x="106" y="67.2" class="m-lab" text-anchor="middle">FT4</text>
+<text x="22" y="51.2" class="m-lab" text-anchor="middle">HUB</text>
+<line x1="0" y1="100" x2="0" y2="114" class="m-ext"/><line x1="146" y1="100" x2="146" y2="114" class="m-ext"/>
+<line x1="0" y1="113" x2="146" y2="113" class="m-dim" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="73.0" y="111.8" class="m-dimt" text-anchor="middle">146.0</text>
+<line x1="146" y1="0" x2="159" y2="0" class="m-ext"/><line x1="146" y1="100" x2="159" y2="100" class="m-ext"/>
+<line x1="157" y1="0" x2="157" y2="100" class="m-dim" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="158.6" y="50.0" class="m-dimt" text-anchor="middle" transform="rotate(90 158.6 50.0)">100.0</text>
+<line x1="133.58" y1="-6" x2="139.58" y2="-6" class="m-ext"/><line x1="133.58" y1="0" x2="139.58" y2="0" class="m-ext"/>
+<line x1="138.58" y1="-6" x2="138.58" y2="0" class="m-dim" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="139.78" y="-2.2" class="m-dimt" text-anchor="start">6.0 pins past edge</text>
+
+<line x1="0" y1="3.5" x2="-9" y2="3.5" class="m-ext"/><line x1="0" y1="96.5" x2="-9" y2="96.5" class="m-ext"/>
+<line x1="-7" y1="3.5" x2="-7" y2="96.5" class="m-dim" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="-8.4" y="50.0" class="m-dimt" text-anchor="middle" transform="rotate(-90 -8.4 50.0)">93.0 (M3, Ø3.2)</text>
+<text x="3.5" y="-12" class="m-dimt" text-anchor="start">holes 3.5 from edges, 139.0 × 93.0 apart</text>
+<line x1="34" y1="106" x2="34" y2="109" class="m-ext"/><line x1="47.5" y1="106" x2="47.5" y2="109" class="m-ext"/>
+<line x1="34" y1="108.5" x2="47.5" y2="108.5" class="m-dim" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="40.75" y="107.3" class="m-dimt" text-anchor="middle">13.5 pitch</text>
+<line x1="0" y1="100" x2="0" y2="109" class="m-ext"/>
+<line x1="0" y1="108.5" x2="34" y2="108.5" class="m-dim" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="17.0" y="107.3" class="m-dimt" text-anchor="middle">34.0 to first pin</text>
+</svg>
+
+  </div>
+  <p class="note">Top view, dimensions in mm. Connector outlines are nominal. The headers are through-hole and right angle: the plastic body sits flush with the board edge and the pins stick out 6 mm past it, so a Dupont housing plugs in parallel to the board. Every other part is SMD on the top side. Four M3 holes (Ø3.2 mm) sit 3.5 mm in from each corner, and each has a keep-out ring.</p>
+</section>
+
+<section>
+  <h2><span class="num">5</span>PCB and manufacturing</h2>
+  <div class="two">
+    <div>
+      <h3>Stackup: JLCPCB JLC04161H-7628</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Layer</th><th>Use</th><th class="num">Thickness</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">F.Cu</td><td>Signal, components, GND pour</td><td class="num">35 µm</td></tr>
+          <tr><td class="sym">PP 7628</td><td>Dk 4.4</td><td class="num">0.2104 mm</td></tr>
+          <tr><td class="sym">In1.Cu</td><td>GND plane, solid</td><td class="num">15 µm</td></tr>
+          <tr><td class="sym">Core</td><td>Dk 4.38</td><td class="num">1.065 mm</td></tr>
+          <tr><td class="sym">In2.Cu</td><td>3.3 V plane</td><td class="num">15 µm</td></tr>
+          <tr><td class="sym">PP 7628</td><td>Dk 4.4</td><td class="num">0.2104 mm</td></tr>
+          <tr><td class="sym">B.Cu</td><td>Signal, GND pour</td><td class="num">35 µm</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3>USB 2.0 differential pairs</h3>
+      <p>All USB pairs run on F.Cu over the solid In1 GND plane. They use 0.22 mm track with a 0.15 mm gap. Each hub-to-FT pair needs a polarity swap, done with two vias next to the FT chip.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Model (JLC solver)</th><th class="num">Z<sub>diff</sub></th></tr></thead>
+        <tbody>
+          <tr><td>Coated edge-coupled microstrip</td><td class="num">93.0 Ω</td></tr>
+          <tr><td>Coplanar, GND pour at 0.3 mm</td><td class="num">92.1 Ω</td></tr>
+          <tr><td>Target (USB 2.0)</td><td class="num">90 Ω ± 15 %</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Queried from JLCPCB's impedance calculator backend on 2026-11-08, with JLC's own 1 oz outer-layer and solder-mask parameters.</p>
+    </div>
+  </div>
+  <h3>Board statistics</h3>
+  <div class="tw"><table>
+    <tbody>
+      <tr><td>Placements (PCBA)</td><td class="num">286 (incl. 16 THT connectors); 4 DNP links</td></tr>
+      <tr><td>Unique BOM lines</td><td class="num">30</td></tr>
+      <tr><td>Vias</td><td class="num">587 (0.3 mm drill)</td></tr>
+      <tr><td>Minimum track / clearance</td><td class="num">0.12 mm / 0.127 mm</td></tr>
+      <tr><td>Routed copper</td><td class="num">≈ 4.97 m in 2731 segments</td></tr>
+      <tr><td>Finish, mask</td><td class="num">JLC defaults; impedance control on</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Key components</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Ref</th><th>Part</th><th>Function</th><th>LCSC</th><th class="num">Qty</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">U4 U8 U12 U16</td><td>FTDI FT4232HL</td><td>Quad USB-UART, LQFP-64</td><td class="sym">C56742</td><td class="num">4</td></tr>
+      <tr><td class="sym">U3</td><td>Microchip USB2514B</td><td>4-port USB 2.0 hub, QFN-36</td><td class="sym">C16251</td><td class="num">1</td></tr>
+      <tr><td class="sym">U6…U19</td><td>74LVC125APW</td><td>Quad tri-state buffer, TX gate + RX buffer</td><td class="sym">C6059</td><td class="num">8</td></tr>
+      <tr><td class="sym">U5 U9 U13 U17</td><td>93LC56B</td><td>FT4232H config EEPROM</td><td class="sym">C190271</td><td class="num">4</td></tr>
+      <tr><td class="sym">U2</td><td>TI TLV62569DBV</td><td>2 A buck, 5 V → 3.3 V</td><td class="sym">C141836</td><td class="num">1</td></tr>
+      <tr><td class="sym">U1</td><td>USBLC6-2SC6</td><td>USB data-line ESD</td><td class="sym">C7519</td><td class="num">1</td></tr>
+      <tr><td class="sym">D2…D23</td><td>ESDA6V1-5SC6</td><td>Connector-pin ESD, GND-referenced</td><td class="sym">C2827672</td><td class="num">8</td></tr>
+      <tr><td class="sym">J101…J116</td><td>PZ254R-11-03P</td><td>1×3 2.54 mm right-angle header, THT</td><td class="sym">C492411</td><td class="num">16</td></tr>
+      <tr><td class="sym">J1</td><td>HRO TYPE-C-31-M-12</td><td>USB-C receptacle</td><td class="sym">C165948</td><td class="num">1</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">All parts were in JLCPCB stock for a 5-board run on 2026-11-08. Parts come to about $59 per board, and the four FT4232HL make up about $50 of that. PCB fabrication and assembly fees are extra.</p>
+</section>
+
+<section>
+  <h2><span class="num">6</span>Host software</h2>
+  <p>The board is a standard FTDI device and uses the Linux <code>ftdi_sio</code> driver. The <code>host/</code> directory in the repository provides:</p>
+  <ul class="feat">
+    <li><code>program-eeproms.sh</code> with <code>sbcu-1..4.conf</code>: writes serials <code>SBCU-1</code>…<code>SBCU-4</code>, VCP mode and 100 mA max power, found by hub port</li>
+    <li><code>70-sbc-uart-hub.rules</code>: stable <code>/dev/sbcu/chNN</code> symlinks from the serial number and USB interface number</li>
+    <li><code>labgrid-exporter.yaml</code>: example exporter with one <code>USBSerialPort</code> per channel</li>
+  </ul>
+  <pre>$ ls /dev/sbcu/
+ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 ch12 ch13 ch14 ch15 ch16
+$ uhubctl -l &lt;hub&gt; -p 4 -a cycle     # hard-reset FT1 (needs R14 fitted)</pre>
+  <p class="note">TX gating relies on the serial port actually being closed between sessions. With ser2net, open the tty only while a client is connected so that DTR drops in between.</p>
+</section>
+
+<section>
+  <h2><span class="num">7</span>Verification status</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Check</th><th>Result</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Schematic ERC (KiCad 9)</td><td>0 violations</td><td><span class="pill ok">Pass</span></td></tr>
+      <tr><td>PCB DRC with schematic parity</td><td>0 violations, 0 unconnected, 0 footprint errors</td><td><span class="pill ok">Pass</span></td></tr>
+      <tr><td>USB pair impedance</td><td>92–93 Ω (JLC solver)</td><td><span class="pill ok">Pass</span></td></tr>
+      <tr><td>JLCPCB stock, 5 boards</td><td>All lines in stock</td><td><span class="pill ok">Pass</span></td></tr>
+      <tr><td>Assembly rotations (CPL)</td><td>USB-C, headers, LEDs and crystals to be checked in JLC's PCBA preview</td><td><span class="pill todo">Open</span></td></tr>
+      <tr><td>Hard reset via hub port power</td><td>R14–R17 not fitted; behaviour not verified</td><td><span class="pill todo">Open</span></td></tr>
+      <tr><td>Hardware bring-up</td><td>Enumeration, loopback at 115200 and 1.5 Mbaud, back-power test</td><td><span class="pill todo">After build</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="num">8</span>Review requested</h2>
+  <p>Before the first order, a second opinion is most useful on these points:</p>
+  <ol class="ask">
+    <li><b>TX gating approach.</b> Is DTR the right gate for your tooling? Some terminal programs and ser2net configurations hold DTR in unexpected states.</li>
+    <li><b>USB2514B straps.</b> Check bus-powered mode, non-removable ports, BC_EN left low and the VBUS_DET divider against your experience with this hub.</li>
+    <li><b>FT4232HL power and clocking.</b> Check VREGIN/VCORE/VPHY/VPLL decoupling and filtering, and the 12 MHz crystal load (27 pF).</li>
+    <li><b>Connector choice.</b> Right-angle 2.54 mm headers with Dupont jumpers give up keying in exchange for cables from stock in any length. Will this hold up in your lab, or would you want a latching connector?</li>
+    <li><b>Layout.</b> Look at the USB pair routing and polarity-swap vias, and at the FT decoupling placement. Most signal routing is autorouted.</li>
+    <li><b>Anything you would want on a 16-port lab adapter</b> that is missing, such as 1.8 V support or per-channel DUT power sensing.</li>
+  </ol>
+  <p style="margin-top:12px">Please send comments as GitHub issues on <a href="https://github.com/jernejsk/sbc-uart-hub/issues">jernejsk/sbc-uart-hub</a> or by reply.</p>
+</section>
+
+<section>
+  <h2><span class="num">9</span>Design files</h2>
+  <div class="files">
+    <a href="https://github.com/jernejsk/sbc-uart-hub"><span>Repository</span><span>jernejsk/sbc-uart-hub</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/blob/main/fab/sbc-uart-hub-schematic.pdf"><span>Schematic (PDF)</span><span>fab/…-schematic.pdf</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/tree/main/hw"><span>KiCad 9 project</span><span>hw/</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/blob/main/fab/sbc-uart-hub-gerbers.zip"><span>Gerbers + drill</span><span>fab/…-gerbers.zip</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/blob/main/fab/bom_jlc.csv"><span>BOM (JLCPCB)</span><span>fab/bom_jlc.csv</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/blob/main/fab/cpl_jlc.csv"><span>Placement (CPL)</span><span>fab/cpl_jlc.csv</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/tree/main/host"><span>Host tooling</span><span>host/</span></a>
+    <a href="https://github.com/jernejsk/sbc-uart-hub/tree/main/gen"><span>Generator scripts</span><span>gen/</span></a>
+  </div>
+  <p class="note">The whole design is generated by scripts: schematic, placement, USB routing, autorouting (Freerouting), silkscreen and fab outputs. The repository README gives the command order.</p>
+</section>
+
+<footer>
+  <span>SBC UART Hub rev A · technical datasheet · draft of 2026-11-08</span>
+  <a href="https://github.com/jernejsk/sbc-uart-hub">github.com/jernejsk/sbc-uart-hub</a>
+</footer>
+
+</div>

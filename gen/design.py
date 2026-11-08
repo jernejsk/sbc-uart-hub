@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SBC farm UART hub: schematic description.
 
-USB-C -> USB2514B hub -> 4x FT4232HL -> 16 gated UART channels on JST-XH.
+USB-C -> USB2514B hub -> 4x FT4232HL -> 16 gated UART channels on 2.54 mm right-angle headers.
 Run: python3 gen/design.py  (writes hw/*.kicad_sch)
 """
 import os
@@ -272,10 +272,10 @@ for n in range(1, 5):
             t.add('R0402', '1k', '+3V3', p + q + '_LED_A')
             t.add('LED', 'green', p + q + '_DTR_N', p + q + '_LED_A')
             jref = 'J%d' % (100 + ch)
-            s.place('Connector_Generic:Conn_01x03', jref, 'B3B-XH-A', (370.84, y0 + qi * 20.32 + 10.16),
-                    fields=dict(fields('C144394', 'B3B-XH-A(LF)(SN)'), Channel='CH%02d' % ch),
-                    fp='Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical',
-                    pins={'1': 'GND', '2': 'CH%02d_TX' % ch, '3': 'CH%02d_RX' % ch})
+            s.place('Connector_Generic:Conn_01x03', jref, 'Header 1x3 RA', (370.84, y0 + qi * 20.32 + 10.16),
+                    fields=dict(fields('C492411', 'PZ254R-11-03P'), Channel='CH%02d' % ch),
+                    fp='sbcu:PinHeader_1x03_P2.54mm_Horizontal_Edge',
+                    pins={'1': 'CH%02d_RX' % ch, '2': 'CH%02d_TX' % ch, '3': 'GND'})
         t.add('C0402', '100n', '+3V3', 'GND')
 
 if __name__ == '__main__':
